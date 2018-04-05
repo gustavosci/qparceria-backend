@@ -8,39 +8,24 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
 @Entity
-public class User implements Serializable {
+public class Sport implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	private String name;
-	private String username;
-	private String email;
-	private String password;
-
-	@ManyToMany
-	@JoinTable(name = "USER_SPORT",
-			joinColumns = @JoinColumn(name = "user_id"),
-			inverseJoinColumns = @JoinColumn(name = "sport_id")
-	)
-	private List<Sport> sports = new ArrayList<>();
 	
-	public User() {		
-	}
+	@ManyToMany(mappedBy="sports")	
+	private List<User> users = new ArrayList<>();
 
-	public User(Integer id, String name, String username, String email, String password) {
+	public Sport(Integer id, String name) {
 		super();
 		this.id = id;
 		this.name = name;
-		this.username = username;
-		this.email = email;
-		this.password = password;
 	}
 
 	public Integer getId() {
@@ -59,38 +44,14 @@ public class User implements Serializable {
 		this.name = name;
 	}
 
-	public String getUsername() {
-		return username;
+	public List<User> getUsers() {
+		return users;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public void setUsers(List<User> users) {
+		this.users = users;
 	}
 
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public List<Sport> getSports() {
-		return sports;
-	}
-
-	public void setSports(List<Sport> sports) {
-		this.sports = sports;
-	}
-	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -107,7 +68,7 @@ public class User implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		User other = (User) obj;
+		Sport other = (Sport) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -115,6 +76,5 @@ public class User implements Serializable {
 			return false;
 		return true;
 	}
-
 	
 }
