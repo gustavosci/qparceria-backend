@@ -2,15 +2,23 @@ package br.com.qparceria.domain;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+import javax.persistence.CollectionTable;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import br.com.qparceria.domain.enuns.Gender;
 
 @Entity
 public class User implements Serializable {
@@ -23,21 +31,32 @@ public class User implements Serializable {
 	private String username;
 	private String email;
 	private String password;
+	private Integer gender;
+	
+	@ManyToOne
+	@JoinColumn(name="adress_id")
+	private Adress adress;
 
 	@JsonManagedReference
 	@ManyToMany(mappedBy="users")
 	private List<Sport> sports = new ArrayList<>();
 	
+	@ElementCollection
+	@CollectionTable(name="PHONE")
+	private Set<String> phones = new HashSet<>();	
+	
 	public User() {		
 	}
 
-	public User(Integer id, String name, String username, String email, String password) {
+	public User(Integer id, String name, String username, String email, String password, Gender gender, Adress adress) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.username = username;
 		this.email = email;
 		this.password = password;
+		this.gender = gender.getId();
+		this.adress = adress;
 	}
 
 	public Integer getId() {
@@ -80,6 +99,30 @@ public class User implements Serializable {
 		this.password = password;
 	}
 
+	public Gender getGender() {
+		return Gender.toEnum(gender);
+	}
+
+	public void setGender(Gender gender) {
+		this.gender = gender.getId();
+	}
+	
+	public Adress getAdress() {
+		return adress;
+	}
+
+	public void setAdress(Adress adress) {
+		this.adress = adress;
+	}
+
+	public Set<String> getPhones() {
+		return phones;
+	}
+
+	public void setPhones(Set<String> phones) {
+		this.phones = phones;
+	}
+	
 	public List<Sport> getSports() {
 		return sports;
 	}
