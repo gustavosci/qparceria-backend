@@ -1,5 +1,6 @@
 package br.com.qparceria;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,8 +59,11 @@ public class QparceriaApplication implements CommandLineRunner {
 		Adress ad2 = new Adress(null, "Teste Adress 2", 999, "Nao tem", "Centro", 93600000, city2);
 		adressRepo.saveAll(Arrays.asList(ad1, ad2));
 		
-		User user1 = new User(null, "Gustavo Santos", "gustavo", "gustavosci@Live.com", "123456", Gender.MASCULINO, ad1);
-		User user2 = new User(null, "Daniela Morais", "dani", "danielamorais@Live.com", "789", Gender.FEMININO, ad2);
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+		User user1 = new User(null, "Gustavo Santos", "gustavo", "gustavosci@Live.com", 
+							  "123456", Gender.MASCULINO, sdf.parse("27/10/1992 00:00"), ad1);
+		User user2 = new User(null, "Daniela Morais", "dani", "danielamorais@Live.com", 
+							  "789", Gender.FEMININO, sdf.parse("13/11/1994 00:00"), ad2);
 		
 		Sport sport1 = new Sport(null, "Corrida");
 		Sport sport2 = new Sport(null, "Ciclismo");

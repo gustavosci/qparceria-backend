@@ -2,6 +2,7 @@ package br.com.qparceria.domain;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -32,7 +33,13 @@ public class User implements Serializable {
 	private String email;
 	private String password;
 	private Integer gender;
-	
+	private Date birthDate;
+	private String facebook;
+	private String twitter;
+	private String instagram;
+	private String strava;
+	private String pic;
+
 	@ManyToOne
 	@JoinColumn(name="adress_id")
 	private Adress adress;
@@ -48,7 +55,7 @@ public class User implements Serializable {
 	public User() {		
 	}
 
-	public User(Integer id, String name, String username, String email, String password, Gender gender, Adress adress) {
+	public User(Integer id, String name, String username, String email, String password, Gender gender, Date birthDate, Adress adress) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -56,6 +63,7 @@ public class User implements Serializable {
 		this.email = email;
 		this.password = password;
 		this.gender = gender.getId();
+		this.setBirthDate(birthDate);
 		this.adress = adress;
 	}
 
@@ -105,8 +113,56 @@ public class User implements Serializable {
 
 	public void setGender(Gender gender) {
 		this.gender = gender.getId();
+	}	
+
+	public Date getBirthDate() {
+		return birthDate;
 	}
-	
+
+	public void setBirthDate(Date birthDate) {
+		this.birthDate = birthDate;
+	}
+
+	public String getFacebook() {
+		return facebook;
+	}
+
+	public void setFacebook(String facebook) {
+		this.facebook = facebook;
+	}
+
+	public String getTwitter() {
+		return twitter;
+	}
+
+	public void setTwitter(String twitter) {
+		this.twitter = twitter;
+	}
+
+	public String getInstagram() {
+		return instagram;
+	}
+
+	public void setInstagram(String instagram) {
+		this.instagram = instagram;
+	}
+
+	public String getStrava() {
+		return strava;
+	}
+
+	public void setStrava(String strava) {
+		this.strava = strava;
+	}
+
+	public String getPic() {
+		return pic;
+	}
+
+	public void setPic(String pic) {
+		this.pic = pic;
+	}
+
 	public Adress getAdress() {
 		return adress;
 	}
