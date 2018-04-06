@@ -17,6 +17,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import br.com.qparceria.domain.enuns.Gender;
 
 @Entity
@@ -31,6 +33,7 @@ public class User implements Serializable {
 	private String email;
 	private String password;
 	private Integer gender;
+	@JsonFormat(pattern="dd/MM/yyyy")
 	private Date birthDate;
 	private String facebook;
 	private String twitter;
