@@ -17,8 +17,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import br.com.qparceria.domain.enuns.Gender;
 
 @Entity
@@ -44,7 +42,6 @@ public class User implements Serializable {
 	@JoinColumn(name="adress_id")
 	private Adress adress;
 
-	@JsonManagedReference
 	@ManyToMany(mappedBy="users")
 	private List<Sport> sports = new ArrayList<>();
 	

@@ -12,7 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Sport implements Serializable {
@@ -23,7 +23,7 @@ public class Sport implements Serializable {
 	private Integer id;
 	private String name;
 	
-	@JsonBackReference
+	@JsonIgnore
 	@ManyToMany
 	@JoinTable(name = "SPORT_USER",
 			joinColumns = @JoinColumn(name = "sport_id"),
