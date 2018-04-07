@@ -1,6 +1,8 @@
 package br.com.qparceria.resources;
 
 import java.net.URI;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.qparceria.domain.User;
+import br.com.qparceria.dto.UserDTO;
 import br.com.qparceria.services.UserService;
 
 @RestController
@@ -25,6 +28,13 @@ public class UserResource {
 	public ResponseEntity<User> find(@PathVariable Integer id) {
 		User obj = service.find(id);
 		return ResponseEntity.ok().body(obj);
+	}
+	
+	@RequestMapping(method=RequestMethod.GET)	
+	public ResponseEntity<List<UserDTO>> findAll() {
+		List<User> list = service.findAll();
+		List<UserDTO> listDTO = list.stream().map(obj -> new UserDTO(obj)).collect(Collectors.toList());						
+		return ResponseEntity.ok().body(listDTO);
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)
