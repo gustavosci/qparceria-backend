@@ -20,7 +20,7 @@ import javax.persistence.ManyToOne;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import br.com.qparceria.domain.enuns.Gender;
-import br.com.qparceria.dto.UserDTO;
+import br.com.qparceria.dto.UserSaveDTO;
 
 @Entity
 public class User implements Serializable {
@@ -68,7 +68,7 @@ public class User implements Serializable {
 		this.adress = adress;
 	}
 
-	public User(UserDTO obj) {
+	public User(UserSaveDTO obj) {
 		super();
 		this.id = obj.getId();
 		this.name = obj.getName();
