@@ -42,7 +42,7 @@ public class UserSaveDTO implements Serializable {
 
 	private Integer cityId;
 
-	private String phone1;
+	private String phone;
 	private String phone2;
 	private String phone3;
 	
@@ -195,12 +195,12 @@ public class UserSaveDTO implements Serializable {
 		this.cep = cep;
 	}
 
-	public String getPhone1() {
-		return phone1;
+	public String getPhone() {
+		return phone;
 	}
 
-	public void setPhone1(String phone1) {
-		this.phone1 = phone1;
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 
 	public String getPhone2() {

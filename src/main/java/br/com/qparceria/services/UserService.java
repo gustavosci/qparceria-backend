@@ -61,6 +61,7 @@ public class UserService {
 	public User update(User obj) {
 		User newObj = find(obj.getId());
 		updateData(newObj, obj);
+		adressRepo.save(newObj.getAdress());
 		return repo.save(newObj);
 	}
 	
@@ -85,12 +86,16 @@ public class UserService {
 				objDTO.getNumber(), objDTO.getComplement(), objDTO.getNeighborhood(), objDTO.getCep(), city);		
 		user.setAdress(adress);
 		
+		// tem que ajustar
 		Optional<Sport> sportOpt = sportRepo.findById(objDTO.getSportId());
 		Sport sport = sportOpt.orElseThrow(() -> new ObjectNotFoundException(
-				"Objeto não encontrado! Id: " + objDTO.getSportId() + ", Tipo: " + Sport.class.getName()));				
+				"Objeto não encontrado! Id: " + objDTO.getSportId() + ", Tipo: " + Sport.class.getName()));
+		System.out.println(sport.getName());
 		user.getSports().add(sport);
 
-		user.getPhones().add(objDTO.getPhone1());		
+		if (objDTO.getPhone() != null) {
+			user.getPhones().add(objDTO.getPhone());
+		}
 		if (objDTO.getPhone2() != null) {
 			user.getPhones().add(objDTO.getPhone2());
 		}
@@ -102,8 +107,6 @@ public class UserService {
 	
 	private void updateData(User newObj, User obj) {
 		newObj.setName(obj.getName());
-		newObj.setId(obj.getId());
-		newObj.setName(obj.getName());
 		newObj.setUsername(obj.getUsername());
 		newObj.setEmail(obj.getEmail());
 		newObj.setPassword(obj.getPassword());
@@ -114,5 +117,7 @@ public class UserService {
 		newObj.setInstagram(obj.getInstagram());
 		newObj.setStrava(obj.getStrava());
 		newObj.setPic(obj.getPic());
+		newObj.setAdress(obj.getAdress());
+		newObj.setPhones(obj.getPhones());		
 	}
 }
