@@ -20,6 +20,7 @@ import javax.persistence.ManyToOne;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import br.com.qparceria.domain.enuns.Gender;
+import br.com.qparceria.dto.UserDTO;
 
 @Entity
 public class User implements Serializable {
@@ -67,6 +68,24 @@ public class User implements Serializable {
 		this.adress = adress;
 	}
 
+	public User(UserDTO obj) {
+		super();
+		this.id = obj.getId();
+		this.name = obj.getName();
+		this.username = obj.getUsername();
+		this.email = obj.getEmail();
+		this.password = obj.getPassword();
+		if(obj.getGender() != null) {
+			this.gender = obj.getGender().getId();	
+		}		
+		this.birthDate = obj.getBirthDate();
+		this.facebook = obj.getFacebook();
+		this.twitter = obj.getTwitter();
+		this.instagram = obj.getInstagram();
+		this.strava = obj.getStrava();
+		this.pic = obj.getPic();
+	}
+	
 	public Integer getId() {
 		return id;
 	}

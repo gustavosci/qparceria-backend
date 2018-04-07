@@ -3,14 +3,21 @@ package br.com.qparceria.dto;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.validator.constraints.Length;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import br.com.qparceria.domain.User;
+import br.com.qparceria.domain.enuns.Gender;
 
 public class UserDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private Integer id;
+	@NotEmpty(message="Preenchimento obrigatório")
+	@Length(min=5, max=80, message="O tamanho deve ser entre 5 e 80 caracteres")
 	private String name;
 	private String username;
 	private String email;
@@ -18,18 +25,30 @@ public class UserDTO implements Serializable {
 	private Integer gender;
 	@JsonFormat(pattern="dd/MM/yyyy")
 	private Date birthDate;
+	private String facebook;
+	private String twitter;
+	private String instagram;
+	private String strava;
+	private String pic;
+
 	
 	public UserDTO() {		
 	}
 	
 	public UserDTO(User obj) {
+		super();
 		this.id = obj.getId();
 		this.name = obj.getName();
 		this.username = obj.getUsername();
 		this.email = obj.getEmail();
 		this.password = obj.getPassword();
-		//this.gender = obj.getGender();
-		this.birthDate = obj.getBirthDate();		
+		this.gender = obj.getGender().getId();
+		this.birthDate = obj.getBirthDate();
+		this.facebook = obj.getFacebook();
+		this.twitter = obj.getTwitter();
+		this.instagram = obj.getInstagram();
+		this.strava = obj.getStrava();
+		this.pic = obj.getPic();
 	}
 
 	public Integer getId() {
@@ -72,12 +91,12 @@ public class UserDTO implements Serializable {
 		this.password = password;
 	}
 
-	public Integer getGender() {
-		return gender;
+	public Gender getGender() {
+		return Gender.toEnum(gender);
 	}
 
-	public void setGender(Integer gender) {
-		this.gender = gender;
+	public void setGender(Gender gender) {
+		this.gender = gender.getId();;
 	}
 
 	public Date getBirthDate() {
@@ -86,6 +105,46 @@ public class UserDTO implements Serializable {
 
 	public void setBirthDate(Date birthDate) {
 		this.birthDate = birthDate;
+	}
+
+	public String getFacebook() {
+		return facebook;
+	}
+
+	public void setFacebook(String facebook) {
+		this.facebook = facebook;
+	}
+
+	public String getTwitter() {
+		return twitter;
+	}
+
+	public void setTwitter(String twitter) {
+		this.twitter = twitter;
+	}
+
+	public String getInstagram() {
+		return instagram;
+	}
+
+	public void setInstagram(String instagram) {
+		this.instagram = instagram;
+	}
+
+	public String getStrava() {
+		return strava;
+	}
+
+	public void setStrava(String strava) {
+		this.strava = strava;
+	}
+
+	public String getPic() {
+		return pic;
+	}
+
+	public void setPic(String pic) {
+		this.pic = pic;
 	}
 
 }

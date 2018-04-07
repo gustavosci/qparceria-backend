@@ -11,6 +11,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import br.com.qparceria.domain.User;
+import br.com.qparceria.dto.UserDTO;
 import br.com.qparceria.repositories.UserRepository;
 import br.com.qparceria.services.exceptions.DataIntegrityException;
 import br.com.qparceria.services.exceptions.ObjectNotFoundException;
@@ -54,5 +55,9 @@ public class UserService {
 		catch (DataIntegrityViolationException e){
 			throw new DataIntegrityException("Não é possível excluir um usuário que possui relacionamentos");
 		}		
+	}
+	
+	public User fromDTO(UserDTO objDTO) {
+		return new User(objDTO);
 	}
 }
