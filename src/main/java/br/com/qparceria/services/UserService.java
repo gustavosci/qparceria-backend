@@ -110,7 +110,7 @@ public class UserService {
 		newObj.setUsername(obj.getUsername());
 		newObj.setEmail(obj.getEmail());
 		newObj.setPassword(obj.getPassword());
-		//newObj.setGender(obj.getGender());
+		newObj.setGender(obj.getGender());
 		newObj.setBirthDate(obj.getBirthDate());
 		newObj.setFacebook(obj.getFacebook());
 		newObj.setTwitter(obj.getTwitter());
