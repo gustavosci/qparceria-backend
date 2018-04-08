@@ -86,13 +86,17 @@ public class UserService {
 				objDTO.getNumber(), objDTO.getComplement(), objDTO.getNeighborhood(), objDTO.getCep(), city);		
 		user.setAdress(adress);
 		
-		// tem que ajustar
-		Optional<Sport> sportOpt = sportRepo.findById(objDTO.getSportId());
-		Sport sport = sportOpt.orElseThrow(() -> new ObjectNotFoundException(
-				"Objeto não encontrado! Id: " + objDTO.getSportId() + ", Tipo: " + Sport.class.getName()));
-		System.out.println(sport.getName());
-		user.getSports().add(sport);
+		// Ajustar
+		user.getSports().clear();
+		for (Integer s : objDTO.getSports()) {
+			System.out.println("Sport lido" + " " + s);
+			Optional<Sport> sportOpt = sportRepo.findById(s);
+			Sport sport = sportOpt.orElseThrow(() -> new ObjectNotFoundException(
+					"Objeto não encontrado! Id: " + s + ", Tipo: " + Sport.class.getName()));
+			user.getSports().add(sport);			
+		}
 
+		user.getPhones().clear();
 		if (objDTO.getPhone() != null) {
 			user.getPhones().add(objDTO.getPhone());
 		}
@@ -102,6 +106,7 @@ public class UserService {
 		if (objDTO.getPhone3() != null) {
 			user.getPhones().add(objDTO.getPhone3());
 		}		
+		
 		return user;
 	}
 	
@@ -118,6 +123,7 @@ public class UserService {
 		newObj.setStrava(obj.getStrava());
 		newObj.setPic(obj.getPic());
 		newObj.setAdress(obj.getAdress());
-		newObj.setPhones(obj.getPhones());		
+		newObj.setPhones(obj.getPhones());
+		newObj.setSports(obj.getSports());
 	}
 }

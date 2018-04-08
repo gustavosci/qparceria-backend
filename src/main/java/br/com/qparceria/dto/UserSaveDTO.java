@@ -2,6 +2,8 @@ package br.com.qparceria.dto;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
@@ -50,8 +52,8 @@ public class UserSaveDTO implements Serializable {
 	private String phone2;
 	private String phone3;
 	
-	private Integer sportId;
-
+	private Set<Integer> sports = new HashSet<>();	
+	
 	public UserSaveDTO() {		
 	}
 
@@ -231,12 +233,12 @@ public class UserSaveDTO implements Serializable {
 		this.cityId = cityId;
 	}
 
-	public Integer getSportId() {
-		return sportId;
+	public Set<Integer> getSports() {
+		return sports;
 	}
 
-	public void setSportId(Integer sportId) {
-		this.sportId = sportId;
+	public void setSports(Set<Integer> sports) {
+		this.sports = sports;
 	}
 	
 }
