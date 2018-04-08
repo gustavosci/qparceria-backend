@@ -11,7 +11,9 @@ import org.hibernate.validator.constraints.Length;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import br.com.qparceria.domain.enuns.Gender;
+import br.com.qparceria.services.validations.UserSave;
 
+@UserSave
 public class UserSaveDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -19,10 +21,12 @@ public class UserSaveDTO implements Serializable {
 	@NotEmpty(message="Preenchimento obrigatório")
 	@Length(min=5, max=120, message="O tamanho deve ser entre 5 e 120 caracteres")
 	private String name;
+	@NotEmpty(message="Preenchimento obrigatório")
 	private String username;
 	@NotEmpty(message="Preenchimento obrigatório")
 	@Email(message="E-mail inválido")
 	private String email;
+	@NotEmpty(message="Preenchimento obrigatório")
 	private String password;
 	private Integer gender;
 	@JsonFormat(pattern="dd/MM/yyyy")

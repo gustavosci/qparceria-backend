@@ -64,13 +64,6 @@ public class QparceriaApplication implements CommandLineRunner {
 							  "123456", Gender.MASCULINO, sdf.parse("27/10/1992"), ad1);
 		User user2 = new User(null, "Daniela Morais", "dani", "danielamorais@Live.com", 
 							  "789", Gender.FEMININO, sdf.parse("13/11/1994"), ad2);
-		User user3 = new User(null, "Daniela Morais", "dani", "danielamorais@Live.com", 
-				  "789", Gender.FEMININO, sdf.parse("13/11/1994"), ad2);
-		User user4 = new User(null, "Daniela Morais", "dani", "danielamorais@Live.com", 
-				  "789", Gender.FEMININO, sdf.parse("13/11/1994"), ad2);
-		User user5 = new User(null, "Daniela Morais", "dani", "danielamorais@Live.com", 
-				  "789", Gender.FEMININO, sdf.parse("13/11/1994"), ad2);
-
 		
 		Sport sport1 = new Sport(null, "Corrida");
 		Sport sport2 = new Sport(null, "Ciclismo");
@@ -85,7 +78,7 @@ public class QparceriaApplication implements CommandLineRunner {
 		sport3.getUsers().addAll(Arrays.asList(user1));
 		
 		// Quem está com MAPPEDBY deve ser criado primeiro
-		userRepo.saveAll(Arrays.asList(user1, user2, user3, user4, user5));
+		userRepo.saveAll(Arrays.asList(user1, user2));
 		sportRepo.saveAll(Arrays.asList(sport1, sport2, sport3));
 		
 	}
