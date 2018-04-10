@@ -1,5 +1,6 @@
 package br.com.qparceria.services;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -55,7 +56,7 @@ public class UserService {
 	public User insert(User obj) {
 		obj.setId(null);
 		adressRepo.save(obj.getAdress());
-		return repo.save(obj);
+		return repo.save(obj); 
 	}
 	
 	public User update(User obj) {
@@ -77,25 +78,25 @@ public class UserService {
 	
 	public User fromSaveDTO(UserSaveDTO objDTO) {
 		User user = new User(objDTO); 
-		
-		Optional<City> cityOpt = cityRepo.findById(objDTO.getCityId());
-		City city = cityOpt.orElseThrow(() -> new ObjectNotFoundException(
-				"Objeto não encontrado! Id: " + objDTO.getCityId() + ", Tipo: " + City.class.getName()));				
-		
+				
 		Adress adress = new Adress(objDTO.getAdressId(), objDTO.getStreet(), 
-				objDTO.getNumber(), objDTO.getComplement(), objDTO.getNeighborhood(), objDTO.getCep(), city);		
+								   objDTO.getNumber(), objDTO.getComplement(), 
+								   objDTO.getNeighborhood(), objDTO.getCep(), 
+								   loadCity(objDTO.getCityId()));		
 		user.setAdress(adress);
 		
-		// Ajustar
+		// Falta resolver isso
 		user.getSports().clear();
-		for (Integer s : objDTO.getSports()) {
-			System.out.println("Sport lido" + " " + s);
-			Optional<Sport> sportOpt = sportRepo.findById(s);
-			Sport sport = sportOpt.orElseThrow(() -> new ObjectNotFoundException(
-					"Objeto não encontrado! Id: " + s + ", Tipo: " + Sport.class.getName()));
-			user.getSports().add(sport);			
+		if (objDTO.isRun()) {
+			user.getSports().addAll(Arrays.asList(loadSport(1)));
 		}
-
+		if (objDTO.isCyclism()) {
+			user.getSports().addAll(Arrays.asList(loadSport(2)));
+		}
+		if (objDTO.isWalk()) {
+			user.getSports().addAll(Arrays.asList(loadSport(3)));
+		}
+		
 		user.getPhones().clear();
 		if (objDTO.getPhone() != null) {
 			user.getPhones().add(objDTO.getPhone());
@@ -108,6 +109,18 @@ public class UserService {
 		}		
 		
 		return user;
+	}
+
+	private City loadCity(Integer id) {
+		Optional<City> cityOpt = cityRepo.findById(id);
+		return cityOpt.orElseThrow(() -> new ObjectNotFoundException(
+				"Objeto não encontrado! Id: " + id + ", Tipo: " + City.class.getName()));				
+	}
+	
+	private Sport loadSport(Integer id) {
+		Optional<Sport> sportOpt = sportRepo.findById(id);
+		return sportOpt.orElseThrow(() -> new ObjectNotFoundException(
+				"Objeto não encontrado! Id: " + id + ", Tipo: " + Sport.class.getName()));		
 	}
 	
 	private void updateData(User newObj, User obj) {
