@@ -16,6 +16,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
@@ -50,7 +51,11 @@ public class User implements Serializable {
 	@JoinColumn(name="adress_id")
 	private Adress adress;
 
-	@ManyToMany(mappedBy="users")
+	@ManyToMany
+	@JoinTable(name = "SPORT_USER",
+	joinColumns = @JoinColumn(name = "user_id"),
+	inverseJoinColumns = @JoinColumn(name = "sport_id")
+	)
 	private List<Sport> sports = new ArrayList<>();
 	
 	@ElementCollection

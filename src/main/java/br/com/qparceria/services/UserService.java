@@ -1,6 +1,5 @@
 package br.com.qparceria.services;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -85,16 +84,15 @@ public class UserService {
 								   loadCity(objDTO.getCityId()));		
 		user.setAdress(adress);
 		
-		// Falta resolver isso
 		user.getSports().clear();
 		if (objDTO.isRun()) {
-			user.getSports().addAll(Arrays.asList(loadSport(1)));
+			user.getSports().add(loadSport(1));
 		}
 		if (objDTO.isCyclism()) {
-			user.getSports().addAll(Arrays.asList(loadSport(2)));
+			user.getSports().add(loadSport(2));
 		}
 		if (objDTO.isWalk()) {
-			user.getSports().addAll(Arrays.asList(loadSport(3)));
+			user.getSports().add(loadSport(3));
 		}
 		
 		user.getPhones().clear();

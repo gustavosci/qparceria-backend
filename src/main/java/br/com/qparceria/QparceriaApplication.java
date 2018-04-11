@@ -78,8 +78,8 @@ public class QparceriaApplication implements CommandLineRunner {
 		sport3.getUsers().addAll(Arrays.asList(user1));
 		
 		// Quem está com MAPPEDBY deve ser criado primeiro
-		userRepo.saveAll(Arrays.asList(user1, user2));
 		sportRepo.saveAll(Arrays.asList(sport1, sport2, sport3));
+		userRepo.saveAll(Arrays.asList(user1, user2));
 		
 	}
 }
