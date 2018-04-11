@@ -12,11 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerMapping;
 
 import br.com.qparceria.domain.User;
-import br.com.qparceria.dto.UserSaveDTO;
+import br.com.qparceria.dto.UserDTO;
 import br.com.qparceria.repositories.UserRepository;
 import br.com.qparceria.resources.exceptions.FieldMessage;
 
-public class UserSaveValidator implements ConstraintValidator<UserSave, UserSaveDTO> {
+public class UserSaveValidator implements ConstraintValidator<UserSave, UserDTO> {
 
 	@Autowired
 	private UserRepository repoUser;
@@ -28,7 +28,7 @@ public class UserSaveValidator implements ConstraintValidator<UserSave, UserSave
 	}
  
 	@Override
-	public boolean isValid(UserSaveDTO objDto, ConstraintValidatorContext context) {
+	public boolean isValid(UserDTO objDto, ConstraintValidatorContext context) {
 
 		@SuppressWarnings("unchecked")
 		Map<String, String> map = (Map<String, String>) req.getAttribute(HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE);

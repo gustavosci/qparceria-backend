@@ -15,7 +15,7 @@ import br.com.qparceria.domain.Adress;
 import br.com.qparceria.domain.City;
 import br.com.qparceria.domain.Sport;
 import br.com.qparceria.domain.User;
-import br.com.qparceria.dto.UserSaveDTO;
+import br.com.qparceria.dto.UserDTO;
 import br.com.qparceria.repositories.AdressRepository;
 import br.com.qparceria.repositories.CityRepository;
 import br.com.qparceria.repositories.SportRepository;
@@ -75,7 +75,7 @@ public class UserService {
 		}		
 	}
 	
-	public User fromSaveDTO(UserSaveDTO objDTO) {
+	public User fromSaveDTO(UserDTO objDTO) {
 		User user = new User(objDTO); 
 				
 		Adress adress = new Adress(objDTO.getAdressId(), objDTO.getStreet(), 

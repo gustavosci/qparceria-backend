@@ -20,7 +20,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.qparceria.domain.User;
 import br.com.qparceria.dto.UserDTO;
-import br.com.qparceria.dto.UserSaveDTO;
 import br.com.qparceria.services.UserService;
 
 @RestController
@@ -38,7 +37,7 @@ public class UserResource {
 	}
 
 	@RequestMapping(method=RequestMethod.POST)
-	public ResponseEntity<Void> insert(@Valid @RequestBody UserSaveDTO objDTO){
+	public ResponseEntity<Void> insert(@Valid @RequestBody UserDTO objDTO){
 		User obj = service.fromSaveDTO(objDTO);
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
@@ -47,7 +46,7 @@ public class UserResource {
 	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.PUT)
-	public ResponseEntity<Void> update(@Valid @RequestBody UserSaveDTO objDTO, @PathVariable Integer id){
+	public ResponseEntity<Void> update(@Valid @RequestBody UserDTO objDTO, @PathVariable Integer id){
 		User obj = service.fromSaveDTO(objDTO);
 		obj.setId(id);
 		obj = service.update(obj);
@@ -60,7 +59,7 @@ public class UserResource {
 		return ResponseEntity.noContent().build();
 	}
 	
-	@RequestMapping(method=RequestMethod.GET)	
+	@RequestMapping(value="/all", method=RequestMethod.GET)	
 	public ResponseEntity<List<UserDTO>> findAll() {
 		List<User> list = service.findAll();
 		List<UserDTO> listDTO = list.stream().map(obj -> new UserDTO(obj)).collect(Collectors.toList());						
