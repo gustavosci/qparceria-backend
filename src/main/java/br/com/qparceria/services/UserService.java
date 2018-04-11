@@ -8,6 +8,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,6 +27,9 @@ import br.com.qparceria.services.exceptions.ObjectNotFoundException;
 @Service
 public class UserService {
 
+	@Autowired
+	private BCryptPasswordEncoder pe;
+	
 	@Autowired
 	private UserRepository repo;
 	@Autowired
@@ -75,8 +79,9 @@ public class UserService {
 		}		
 	}
 	
-	public User fromSaveDTO(UserDTO objDTO) {
-		User user = new User(objDTO); 
+	public User fromDTO(UserDTO objDTO) {
+		User user = new User(objDTO);
+		user.setPassword(pe.encode(objDTO.getPassword()));
 				
 		Adress adress = new Adress(objDTO.getAdressId(), objDTO.getStreet(), 
 								   objDTO.getNumber(), objDTO.getComplement(), 

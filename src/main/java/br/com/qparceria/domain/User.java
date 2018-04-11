@@ -21,6 +21,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import br.com.qparceria.domain.enuns.Gender;
 import br.com.qparceria.dto.UserDTO;
@@ -37,6 +38,7 @@ public class User implements Serializable {
 	private String username;
 	@Column(unique=true)
 	private String email;
+	@JsonIgnore
 	private String password;
 	private Integer gender;
 	@JsonFormat(pattern="dd/MM/yyyy")

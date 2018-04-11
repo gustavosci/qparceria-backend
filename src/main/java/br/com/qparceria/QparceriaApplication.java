@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import br.com.qparceria.domain.Adress;
 import br.com.qparceria.domain.City;
@@ -23,6 +24,9 @@ import br.com.qparceria.repositories.UserRepository;
 @SpringBootApplication
 public class QparceriaApplication implements CommandLineRunner {
 
+	@Autowired
+	BCryptPasswordEncoder pe;
+	
 	@Autowired
 	private UserRepository userRepo; 
 	@Autowired
@@ -61,9 +65,9 @@ public class QparceriaApplication implements CommandLineRunner {
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		User user1 = new User(null, "Gustavo Santos", "gustavo", "gustavosci@Live.com", 
-							  "123456", Gender.MASCULINO, sdf.parse("27/10/1992"), ad1);
+							  pe.encode("123456"), Gender.MASCULINO, sdf.parse("27/10/1992"), ad1);
 		User user2 = new User(null, "Daniela Morais", "dani", "danielamorais@Live.com", 
-							  "789", Gender.FEMININO, sdf.parse("13/11/1994"), ad2);
+							  pe.encode("123"), Gender.FEMININO, sdf.parse("13/11/1994"), ad2);
 		
 		Sport sport1 = new Sport(null, "Corrida");
 		Sport sport2 = new Sport(null, "Ciclismo");
