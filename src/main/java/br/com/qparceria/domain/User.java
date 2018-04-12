@@ -6,12 +6,14 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -24,6 +26,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import br.com.qparceria.domain.enuns.Gender;
+import br.com.qparceria.domain.enuns.Profile;
 import br.com.qparceria.dto.UserDTO;
 
 @Entity
@@ -63,8 +66,12 @@ public class User implements Serializable {
 	@ElementCollection
 	@CollectionTable(name="PHONE")
 	private Set<String> phones = new HashSet<>();	
+
+	@ElementCollection(fetch=FetchType.EAGER)
+	@CollectionTable(name="PROFILES")
+	private Set<Integer> profiles = new HashSet<>();
 	
-	public User() {		
+	public User() {
 	}
 
 	public User(Integer id, String name, String username, String email, String password, Gender gender, Date birthDate, Adress adress) {
@@ -77,6 +84,7 @@ public class User implements Serializable {
 		this.gender = gender.getId();
 		this.setBirthDate(birthDate);
 		this.adress = adress;
+		addProfile(Profile.CLIENT);
 	}
 
 	public User(UserDTO obj) {
@@ -94,7 +102,8 @@ public class User implements Serializable {
 		this.twitter = obj.getTwitter();
 		this.instagram = obj.getInstagram();
 		this.strava = obj.getStrava();
-		this.pic = obj.getPic();
+		this.pic = obj.getPic();	
+		addProfile(Profile.CLIENT);
 	}
 	
 	public Integer getId() {
@@ -135,6 +144,14 @@ public class User implements Serializable {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	
+	public Set<Profile> getProfiles(){
+		return profiles.stream().map(x -> Profile.toEnum(x)).collect(Collectors.toSet());
+	}
+	
+	public void addProfile(Profile profile) {
+		profiles.add(profile.getId());
 	}
 
 	public Gender getGender() {
