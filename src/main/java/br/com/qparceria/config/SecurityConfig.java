@@ -19,6 +19,7 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import br.com.qparceria.security.JWTAuthenticationFilter;
+import br.com.qparceria.security.JWTAuthorizationFilter;
 import br.com.qparceria.security.JWTUtil;
 
 @Configuration
@@ -35,13 +36,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	private JWTUtil jwtUtil;
 	
 	private static final String[] PUBLIC_MATCHERS = {
-			"/h2-console/**",
-			"/login"
+			"/h2-console/**"
 	};
 
 	private static final String[] PUBLIC_MATCHERS_GET = {
 			"/users/**"
 	};
+
+	private static final String[] PUBLIC_MATCHERS_POST = {
+			"/users/**"
+	};
+
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -53,9 +58,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.cors().and().csrf().disable();
 		http.authorizeRequests()
 			.antMatchers(HttpMethod.GET, PUBLIC_MATCHERS_GET).permitAll()
+			.antMatchers(HttpMethod.POST, PUBLIC_MATCHERS_POST).permitAll()
 			.antMatchers(PUBLIC_MATCHERS).permitAll()
 			.anyRequest().authenticated();
 		http.addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtUtil));
+		http.addFilter(new JWTAuthorizationFilter(authenticationManager(), jwtUtil, userDetailsService));
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 	}
 

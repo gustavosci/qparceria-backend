@@ -1,7 +1,6 @@
 package br.com.qparceria.security;
 
 import java.io.IOException;
-import java.rmi.ServerException;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -54,7 +53,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 	protected void successfulAuthentication(HttpServletRequest req, 
 										   HttpServletResponse res,
 										   FilterChain chain,
-										   Authentication auth) throws IOException, ServerException {
+										   Authentication auth) throws IOException, ServletException {
 		String username = ((UserSS) auth.getPrincipal()).getUsername();
         String token = jwtUtil.generateToken(username);
         res.addHeader("Authorization", "Bearer " + token);
