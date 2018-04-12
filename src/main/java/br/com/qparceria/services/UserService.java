@@ -16,11 +16,14 @@ import br.com.qparceria.domain.Adress;
 import br.com.qparceria.domain.City;
 import br.com.qparceria.domain.Sport;
 import br.com.qparceria.domain.User;
+import br.com.qparceria.domain.enuns.Profile;
 import br.com.qparceria.dto.UserDTO;
 import br.com.qparceria.repositories.AdressRepository;
 import br.com.qparceria.repositories.CityRepository;
 import br.com.qparceria.repositories.SportRepository;
 import br.com.qparceria.repositories.UserRepository;
+import br.com.qparceria.security.UserSS;
+import br.com.qparceria.services.exceptions.AuthorizationException;
 import br.com.qparceria.services.exceptions.DataIntegrityException;
 import br.com.qparceria.services.exceptions.ObjectNotFoundException;
 
@@ -41,6 +44,12 @@ public class UserService {
 
 	
 	public User find(Integer id) {
+		
+		UserSS userSS = UserLoggedService.authenticated();
+		if (userSS == null || !userSS.hasHole(Profile.ADMIN) && !id.equals(userSS.getId()) ) {
+			throw new AuthorizationException("Acesso negado");
+		}
+		
 		Optional<User> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + User.class.getName()));				
