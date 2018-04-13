@@ -59,6 +59,19 @@ public class UserService {
 		return repo.findAll();
 	}
 	
+	public User findByUsername(String username) {
+		
+		UserSS userSS = UserLoggedService.authenticated();
+		if (userSS == null || !userSS.hasHole(Profile.ADMIN) && !username.equals(userSS.getUsername()) ) {
+			throw new AuthorizationException("Acesso negado");
+		}
+		User obj = repo.findByUsername(username);
+		if (obj == null) {
+			new ObjectNotFoundException("Objeto não encontrado! Username: " + username + ", Tipo: " + User.class.getName());
+		}		
+		return obj; 				
+	}
+	
 	public Page<User> findPage(Integer page, Integer linesPerPage, String orderBy, String direction){
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
 		return repo.findAll(pageRequest);
@@ -151,4 +164,5 @@ public class UserService {
 		newObj.setPhones(obj.getPhones());
 		newObj.setSports(obj.getSports());
 	}
+		
 }

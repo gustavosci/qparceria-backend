@@ -15,7 +15,6 @@ import br.com.qparceria.services.UserLoggedService;
 @RestController
 @RequestMapping(value="/auth")
 public class AuthResource {
-
 	
 	@Autowired
 	private JWTUtil jwtUtil;
