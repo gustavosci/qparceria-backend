@@ -43,8 +43,7 @@ public class UserService {
 	private SportRepository sportRepo; 
 
 	
-	public User find(Integer id) {
-		
+	public User find(Integer id) {		
 		UserSS userSS = UserLoggedService.authenticated();
 		if (userSS == null || !userSS.hasHole(Profile.ADMIN) && !id.equals(userSS.getId()) ) {
 			throw new AuthorizationException("Acesso negado");
@@ -59,8 +58,7 @@ public class UserService {
 		return repo.findAll();
 	}
 	
-	public User findByUsername(String username) {
-		
+	public UserDTO findByUsername(String username) {		
 		UserSS userSS = UserLoggedService.authenticated();
 		if (userSS == null || !userSS.hasHole(Profile.ADMIN) && !username.equals(userSS.getUsername()) ) {
 			throw new AuthorizationException("Acesso negado");
@@ -69,7 +67,12 @@ public class UserService {
 		if (obj == null) {
 			new ObjectNotFoundException("Objeto não encontrado! Username: " + username + ", Tipo: " + User.class.getName());
 		}		
-		return obj; 				
+		
+		return toDTO(obj); 				
+	}
+	
+	private UserDTO toDTO(User obj) {
+		return new UserDTO(obj);
 	}
 	
 	public Page<User> findPage(Integer page, Integer linesPerPage, String orderBy, String direction){

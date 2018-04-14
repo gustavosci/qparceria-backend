@@ -35,9 +35,9 @@ public class UserResource {
 	}
 
 	@RequestMapping(value="/username", method=RequestMethod.GET)	
-	public ResponseEntity<User> find(@RequestParam(value="value") String username) {
-		User obj = service.findByUsername(username);
-		return ResponseEntity.ok().body(obj);
+	public ResponseEntity<UserDTO> find(@RequestParam(value="value") String username) {
+		UserDTO objDTO = service.findByUsername(username);		
+		return ResponseEntity.ok().body(objDTO);
 	}
 
 	@RequestMapping(method=RequestMethod.POST)
