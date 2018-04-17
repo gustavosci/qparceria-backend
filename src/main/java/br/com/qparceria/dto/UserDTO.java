@@ -47,6 +47,7 @@ public class UserDTO implements Serializable {
 	private Integer cep;
 
 	private Integer cityId;
+	private Integer ufId;	
 
 	private String phone;
 	private String phone2;
@@ -79,7 +80,8 @@ public class UserDTO implements Serializable {
 		this.complement = obj.getAdress().getComplement();
 		this.neighborhood = obj.getAdress().getNeighborhood();
 		this.cep = obj.getAdress().getCep();
-		this.cityId = obj.getAdress().getCity().getId();		
+		this.cityId = obj.getAdress().getCity().getId();
+		this.ufId = obj.getAdress().getCity().getUf().getId();
 		
 		Integer i = 1; 
 		for(String p : obj.getPhones()) {
@@ -284,6 +286,14 @@ public class UserDTO implements Serializable {
 
 	public void setCityId(Integer cityId) {
 		this.cityId = cityId;
+	}
+
+	public Integer getUfId() {
+		return ufId;
+	}
+
+	public void setUfId(Integer ufId) {
+		this.ufId = ufId;
 	}
 
 	public boolean isRun() {
