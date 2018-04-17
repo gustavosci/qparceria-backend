@@ -41,7 +41,6 @@ public class UserService {
 	private CityRepository cityRepo; 
 	@Autowired
 	private SportRepository sportRepo; 
-
 	
 	public User find(Integer id) {		
 		UserSS userSS = UserLoggedService.authenticated();
@@ -155,7 +154,6 @@ public class UserService {
 		newObj.setName(obj.getName());
 		newObj.setUsername(obj.getUsername());
 		newObj.setEmail(obj.getEmail());
-		newObj.setPassword(obj.getPassword());
 		newObj.setGender(obj.getGender());
 		newObj.setBirthDate(obj.getBirthDate());
 		newObj.setFacebook(obj.getFacebook());
