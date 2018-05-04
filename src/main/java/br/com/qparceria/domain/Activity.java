@@ -1,7 +1,8 @@
 package br.com.qparceria.domain;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -39,7 +40,7 @@ public class Activity implements Serializable {
 	private String typeRoute;
 	private String nameRoute;
 	@JsonFormat(pattern="HH:mm:ss")
-	private Date timeStart;
+	private LocalTime timeStart;
 	
 	private boolean happenOnRain;
 	private boolean happenOnSun;
@@ -56,10 +57,10 @@ public class Activity implements Serializable {
 	private Integer minPeople;
 	
 	@JsonFormat(pattern="HH:mm:ss")
-	private Date totalTime;
+	private LocalTime totalTime;
 	private Integer frequency;
 	@JsonFormat(pattern="dd/MM/yyyy")
-	private Date date;
+	private LocalDate date;
 	@ElementCollection
 	@CollectionTable(name="DAYS_ACTIVITY")
 	private Set<Integer> days = new HashSet<>();	
@@ -78,10 +79,10 @@ public class Activity implements Serializable {
 	}
 	
 	public Activity(String referencePointStart, String referencePointEnd, City cityStart, City cityEnd,
-			String typeRoute, String nameRoute, Date timeStart, boolean happenOnRain, boolean happenOnSun,
+			String typeRoute, String nameRoute, LocalTime timeStart, boolean happenOnRain, boolean happenOnSun,
 			boolean happenOnHeat, boolean happenOnCold, boolean forBegginers, boolean forRegulars, boolean forExperts,
-			float distance, float altimetry, float averageSpeed, Integer minPeople, Frequency frequency, Date date,
-			Date totalTime, boolean active, Sport sport, User owner) {
+			float distance, float altimetry, float averageSpeed, Integer minPeople, Frequency frequency, LocalDate date,
+			LocalTime totalTime, boolean active, Sport sport, User owner) {
 		super();
 		this.referencePointStart = referencePointStart;
 		this.referencePointEnd = referencePointEnd;
@@ -261,11 +262,11 @@ public class Activity implements Serializable {
 		this.frequency = frequency.getId();
 	}
 
-	public Date getDate() {
+	public LocalDate getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(LocalDate date) {
 		this.date = date;
 	}
 
@@ -293,19 +294,19 @@ public class Activity implements Serializable {
 		this.owner = owner;
 	}
 	
-	public Date getTimeStart() {
+	public LocalTime getTimeStart() {
 		return timeStart;
 	}
 
-	public void setTimeStart(Date timeStart) {
+	public void setTimeStart(LocalTime timeStart) {
 		this.timeStart = timeStart;
 	}
 
-	public Date getTotalTime() {
+	public LocalTime getTotalTime() {
 		return totalTime;
 	}
 
-	public void setTotalTime(Date totalTime) {
+	public void setTotalTime(LocalTime totalTime) {
 		this.totalTime = totalTime;
 	}
 

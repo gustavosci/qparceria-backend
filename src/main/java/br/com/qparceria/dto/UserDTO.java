@@ -1,7 +1,7 @@
 package br.com.qparceria.dto;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
@@ -32,7 +32,7 @@ public class UserDTO implements Serializable {
 	private String password;
 	private Integer gender;
 	@JsonFormat(pattern="dd/MM/yyyy")
-	private Date birthDate;
+	private LocalDate birthDate;
 	private String facebook;
 	private String twitter;
 	private String instagram;
@@ -160,11 +160,11 @@ public class UserDTO implements Serializable {
 		this.gender = gender.getId();;
 	}
 
-	public Date getBirthDate() {
+	public LocalDate getBirthDate() {
 		return birthDate;
 	}
 
-	public void setBirthDate(Date birthDate) {
+	public void setBirthDate(LocalDate birthDate) {
 		this.birthDate = birthDate;
 	}
 

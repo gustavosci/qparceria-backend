@@ -1,6 +1,8 @@
 package br.com.qparceria;
 
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -71,11 +73,13 @@ public class QparceriaApplication implements CommandLineRunner {
 		Adress ad2 = new Adress(null, "Teste Adress 2", 999, "Nao tem", "Centro", 93600000, city2);
 		adressRepo.saveAll(Arrays.asList(ad1, ad2));
 		
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+
 		User user1 = new User(null, "Gustavo Santos", "gustavo", "gustavosci@Live.com", 
-							  pe.encode("123456"), Gender.MASCULINO, sdf.parse("27/10/1992"), ad1);
+							  pe.encode("123456"), Gender.MASCULINO, LocalDate.parse("27/10/1992", dateFormatter), ad1);
 		User user2 = new User(null, "Daniela Morais", "dani", "danielamorais@Live.com", 
-							  pe.encode("123"), Gender.FEMININO, sdf.parse("13/11/1994"), ad2);
+							  pe.encode("123"), Gender.FEMININO, LocalDate.parse("13/11/1994", dateFormatter), ad2);
 		
 		Sport sport1 = new Sport(null, "Corrida");
 		Sport sport2 = new Sport(null, "Ciclismo");
@@ -93,15 +97,14 @@ public class QparceriaApplication implements CommandLineRunner {
 		sportRepo.saveAll(Arrays.asList(sport1, sport2, sport3));
 		userRepo.saveAll(Arrays.asList(user1, user2));
 		
-		SimpleDateFormat sdfTime = new SimpleDateFormat("HH:mm:ss");
 		Activity act1 = new Activity("Posto Ipiranga", "Tintas Santos", city1, city1, "Estrada", "Banda da hora", 
-				sdfTime.parse("15:23:00"), false, true, true, true, true, true, false, Float.parseFloat("80.80"), 
+				LocalTime.parse("15:23:00", timeFormatter), false, true, true, true, true, true, false, Float.parseFloat("80.80"), 
 				Float.parseFloat("150.89"), Float.parseFloat("78.90"), 3,
-				Frequency.SPECIFIC_DATE, sdf.parse("10/05/2018"), sdfTime.parse("01:30:00"), true, sport2, user1);
+				Frequency.SPECIFIC_DATE, LocalDate.parse("10/05/2018", dateFormatter), LocalTime.parse("01:30:00", timeFormatter), true, sport2, user1);
 		Activity act2 = new Activity("Centro", "Amaral", city3, city1, "Barro e terra", "Rota do café", 
-				sdfTime.parse("18:23:19"), true, false, true, true, false, false, true, Float.parseFloat("80.80"), 
+				LocalTime.parse("18:23:19", timeFormatter), true, false, true, true, false, false, true, Float.parseFloat("80.80"), 
 				Float.parseFloat("150.89"), Float.parseFloat("78.90"), 10,
-				Frequency.REGULAR, null, sdfTime.parse("02:58:20"), true, sport1, user2);
+				Frequency.REGULAR, null, LocalTime.parse("02:58:20", timeFormatter), true, sport1, user2);
 		Set<WeekDays> days = new HashSet<>();	
 		days.add(WeekDays.MONDAY);
 		days.add(WeekDays.THURSDAY);

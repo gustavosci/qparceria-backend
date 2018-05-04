@@ -1,8 +1,8 @@
 package br.com.qparceria.domain;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -45,7 +45,7 @@ public class User implements Serializable {
 	private String password;
 	private Integer gender;
 	@JsonFormat(pattern="dd/MM/yyyy")
-	private Date birthDate;
+	private LocalDate birthDate;
 	private String facebook;
 	private String twitter;
 	private String instagram;
@@ -74,7 +74,7 @@ public class User implements Serializable {
 	public User() {
 	}
 
-	public User(Integer id, String name, String username, String email, String password, Gender gender, Date birthDate, Adress adress) {
+	public User(Integer id, String name, String username, String email, String password, Gender gender, LocalDate birthDate, Adress adress) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -162,11 +162,11 @@ public class User implements Serializable {
 		this.gender = gender.getId();
 	}	
 
-	public Date getBirthDate() {
+	public LocalDate getBirthDate() {
 		return birthDate;
 	}
 
-	public void setBirthDate(Date birthDate) {
+	public void setBirthDate(LocalDate birthDate) {
 		this.birthDate = birthDate;
 	}
 
