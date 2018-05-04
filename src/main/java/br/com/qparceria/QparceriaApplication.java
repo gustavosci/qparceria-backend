@@ -2,6 +2,8 @@ package br.com.qparceria;
 
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -9,12 +11,16 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import br.com.qparceria.domain.Activity;
 import br.com.qparceria.domain.Adress;
 import br.com.qparceria.domain.City;
 import br.com.qparceria.domain.Sport;
 import br.com.qparceria.domain.UF;
 import br.com.qparceria.domain.User;
+import br.com.qparceria.domain.enuns.Frequency;
 import br.com.qparceria.domain.enuns.Gender;
+import br.com.qparceria.domain.enuns.WeekDays;
+import br.com.qparceria.repositories.ActivityRepository;
 import br.com.qparceria.repositories.AdressRepository;
 import br.com.qparceria.repositories.CityRepository;
 import br.com.qparceria.repositories.SportRepository;
@@ -37,6 +43,8 @@ public class QparceriaApplication implements CommandLineRunner {
 	private CityRepository cityRepo; 
 	@Autowired
 	private AdressRepository adressRepo; 
+	@Autowired
+	private ActivityRepository activityRepo; 
 
 	
 	public static void main(String[] args) {
@@ -84,6 +92,22 @@ public class QparceriaApplication implements CommandLineRunner {
 		// Quem está com MAPPEDBY deve ser criado primeiro
 		sportRepo.saveAll(Arrays.asList(sport1, sport2, sport3));
 		userRepo.saveAll(Arrays.asList(user1, user2));
+		
+		SimpleDateFormat sdfTime = new SimpleDateFormat("HH:mm:ss");
+		Activity act1 = new Activity("Posto Ipiranga", "Tintas Santos", city1, city1, "Estrada", "Banda da hora", 
+				sdfTime.parse("15:23:00"), false, true, true, true, true, true, false, Float.parseFloat("80.80"), 
+				Float.parseFloat("150.89"), Float.parseFloat("78.90"), 3,
+				Frequency.SPECIFIC_DATE, sdf.parse("10/05/2018"), sdfTime.parse("01:30:00"), true, sport2, user1);
+		Activity act2 = new Activity("Centro", "Amaral", city3, city1, "Barro e terra", "Rota do café", 
+				sdfTime.parse("18:23:19"), true, false, true, true, false, false, true, Float.parseFloat("80.80"), 
+				Float.parseFloat("150.89"), Float.parseFloat("78.90"), 10,
+				Frequency.REGULAR, null, sdfTime.parse("02:58:20"), true, sport1, user2);
+		Set<WeekDays> days = new HashSet<>();	
+		days.add(WeekDays.MONDAY);
+		days.add(WeekDays.THURSDAY);
+		days.add(WeekDays.SUNDAY);
+		act2.setDays(days);
+		activityRepo.saveAll(Arrays.asList(act1, act2));
 		
 	}
 }
