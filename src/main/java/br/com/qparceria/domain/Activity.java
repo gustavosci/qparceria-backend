@@ -20,6 +20,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import br.com.qparceria.domain.enuns.Frequency;
 import br.com.qparceria.domain.enuns.WeekDays;
+import br.com.qparceria.dto.ActivityDTO;
 
 @Entity
 public class Activity implements Serializable {
@@ -41,6 +42,8 @@ public class Activity implements Serializable {
 	private String nameRoute;
 	@JsonFormat(pattern="HH:mm:ss")
 	private LocalTime timeStart;
+	@JsonFormat(pattern="HH:mm:ss")
+	private LocalTime totalTime;
 	
 	private boolean happenOnRain;
 	private boolean happenOnSun;
@@ -56,8 +59,6 @@ public class Activity implements Serializable {
 	private float averageSpeed;
 	private Integer minPeople;
 	
-	@JsonFormat(pattern="HH:mm:ss")
-	private LocalTime totalTime;
 	private Integer frequency;
 	@JsonFormat(pattern="dd/MM/yyyy")
 	private LocalDate date;
@@ -108,6 +109,36 @@ public class Activity implements Serializable {
 		this.active = active;
 		this.sport = sport;
 		this.owner = owner;
+	}
+	
+	public Activity(ActivityDTO obj) {
+		super();
+		this.id = obj.getId();
+		this.referencePointStart = obj.getReferencePointStart();
+		this.referencePointEnd = obj.getReferencePointEnd();
+		this.typeRoute = obj.getTypeRoute();
+		this.nameRoute = obj.getNameRoute();
+		this.timeStart = obj.getTimeStart();
+		this.totalTime = obj.getTotalTime();
+		
+		this.happenOnRain = obj.getDetails().isHappenOnRain();
+		this.happenOnSun = obj.getDetails().isHappenOnSun();
+		this.happenOnCold = obj.getDetails().isHappenOnCold();
+		this.happenOnHeat = obj.getDetails().isHappenOnHeat();		
+		this.forBegginers = obj.getDetails().isForBegginers();
+		this.forRegulars = obj.getDetails().isForRegulars();
+		this.forExperts = obj.getDetails().isForExperts();
+		this.distance = obj.getDetails().getDistance();
+		this.altimetry = obj.getDetails().getDistance();
+		this.averageSpeed = obj.getDetails().getAverageSpeed();
+		this.minPeople = obj.getDetails().getMinPeople();
+	
+		if(obj.getSchedule().getFrequency() != null) {
+			this.frequency = obj.getSchedule().getFrequency().getId();	
+		}
+		this.date = obj.getSchedule().getDate();
+		
+		this.active = true;
 	}
 
 	public Integer getId() {
