@@ -64,7 +64,7 @@ public class User implements Serializable {
 	private List<Sport> sports = new ArrayList<>();
 	
 	@ElementCollection
-	@CollectionTable(name="PHONE")
+	@CollectionTable(name="PHONES_USER")
 	private Set<String> phones = new HashSet<>();	
 
 	@ElementCollection(fetch=FetchType.EAGER)
