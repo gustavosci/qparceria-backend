@@ -30,7 +30,8 @@ public class ActivityDTO implements Serializable {
 
 	private ActivityScheduleDTO schedule;
 	private ActivityDetailsDTO details;
-	
+
+	@NotEmpty(message="A atividade deve possuir um esporte")
 	private Integer sportId;
 	
 	public ActivityDTO() {		

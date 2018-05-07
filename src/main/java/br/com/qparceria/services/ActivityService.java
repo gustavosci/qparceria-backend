@@ -59,7 +59,7 @@ public class ActivityService {
 	
 	public Activity update(Activity obj) {
 		Activity newObj = find(obj.getId());
-		//updateData(newObj, obj);
+		updateData(newObj, obj);
 		return repo.save(newObj);
 	}
 	
@@ -130,4 +130,36 @@ public class ActivityService {
 		return userOpt.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + User.class.getName()));		
 	}
+	
+	private void updateData(Activity newObj, Activity obj) {
+		newObj.setReferencePointStart(obj.getReferencePointStart());
+		newObj.setReferencePointEnd(obj.getReferencePointEnd());
+		newObj.setCityStart(obj.getCityStart());
+		newObj.setCityEnd(obj.getCityEnd());
+		newObj.setNameRoute(obj.getNameRoute());
+		newObj.setTypeRoute(obj.getTypeRoute());
+		newObj.setTimeStart(obj.getTimeStart());
+		newObj.setTotalTime(obj.getTotalTime());
+		
+		newObj.setHappenOnRain(obj.isHappenOnRain());
+		newObj.setHappenOnSun(obj.isHappenOnSun());
+		newObj.setHappenOnHeat(obj.isHappenOnHeat());
+		newObj.setHappenOnCold(obj.isHappenOnCold());
+
+		newObj.setForBegginers(obj.isForBegginers());
+		newObj.setForRegulars(obj.isForRegulars());
+		newObj.setForExperts(obj.isForExperts());
+		
+		newObj.setDistance(obj.getDistance());
+		newObj.setAltimetry(obj.getAltimetry());
+		newObj.setAverageSpeed(obj.getAverageSpeed());
+		newObj.setMinPeople(obj.getMinPeople());
+		
+		newObj.setFrequency(obj.getFrequency());
+		newObj.setDate(obj.getDate());
+		newObj.setDays(obj.getDays());
+
+		newObj.setSport(obj.getSport());
+	}
+
 }
