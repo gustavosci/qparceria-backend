@@ -3,13 +3,11 @@ package br.com.qparceria.dto;
 import java.io.Serializable;
 import java.time.LocalTime;
 
-import javax.validation.constraints.NotEmpty;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import br.com.qparceria.services.validations.UserSave;
+import br.com.qparceria.services.validations.ActivitySave;
 
-@UserSave
+@ActivitySave
 public class ActivityDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -17,9 +15,7 @@ public class ActivityDTO implements Serializable {
 
 	private String referencePointStart;
 	private String referencePointEnd;
-	@NotEmpty(message="A atividade deve possuir uma cidade inicial")
 	private Integer cityStartId;
-	@NotEmpty(message="A atividade deve possuir uma cidade final")
 	private Integer cityEndId;
 	private String typeRoute;
 	private String nameRoute;
@@ -31,7 +27,6 @@ public class ActivityDTO implements Serializable {
 	private ActivityScheduleDTO schedule;
 	private ActivityDetailsDTO details;
 
-	@NotEmpty(message="A atividade deve possuir um esporte")
 	private Integer sportId;
 	
 	public ActivityDTO() {		
