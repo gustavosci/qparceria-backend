@@ -1,7 +1,9 @@
 package br.com.qparceria.services;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -75,7 +77,7 @@ public class ActivityService {
 	
 	public Activity fromDTO(ActivityDTO objDTO) {
 		Activity act = new Activity(objDTO);
-
+		
 		act.setCityStart(loadCity(objDTO.getCityStartId()));
 		act.setCityEnd(loadCity(objDTO.getCityEndId()));
 		
@@ -86,30 +88,31 @@ public class ActivityService {
 			throw new AuthorizationException("Usuário não está logado");
 		}
 		act.setOwner(loadUser(userSS.getId()));		
-		
-		act.getDays().clear();
+
+		Set<WeekDays> days = new HashSet<>();	
 		if(objDTO.getSchedule().isMonday()) {
-			act.getDays().add(WeekDays.MONDAY);
+			days.add(WeekDays.MONDAY);
 		}
 		if(objDTO.getSchedule().isTuesday()) {
-			act.getDays().add(WeekDays.TUESDAY);
+			days.add(WeekDays.TUESDAY);
 		}
 		if(objDTO.getSchedule().isWednesday()) {
-			act.getDays().add(WeekDays.WEDNESDAY);
+			days.add(WeekDays.WEDNESDAY);
 		}
 		if(objDTO.getSchedule().isThursday()) {
-			act.getDays().add(WeekDays.THURSDAY);
+			days.add(WeekDays.THURSDAY);
 		}
 		if(objDTO.getSchedule().isFriday()) {
-			act.getDays().add(WeekDays.FRIDAY);
+			days.add(WeekDays.FRIDAY);
 		}
 		if(objDTO.getSchedule().isSaturday()) {
-			act.getDays().add(WeekDays.SATURDAY);
+			days.add(WeekDays.SATURDAY);
 		}
 		if(objDTO.getSchedule().isSunday()) {
-			act.getDays().add(WeekDays.SUNDAY);
+			days.add(WeekDays.SUNDAY);
 		}
-		
+		act.setDays(days);
+
 		return act;
 	}
 

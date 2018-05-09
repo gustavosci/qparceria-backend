@@ -1,6 +1,7 @@
 package br.com.qparceria.domain;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.HashSet;
@@ -54,9 +55,9 @@ public class Activity implements Serializable {
 	private boolean forRegulars;
 	private boolean forExperts;
 	
-	private float distance;
-	private float altimetry;
-	private float averageSpeed;
+	private BigDecimal distance;
+	private BigDecimal altimetry;
+	private BigDecimal averageSpeed;
 	private Integer minPeople;
 	
 	private Integer frequency;
@@ -82,7 +83,7 @@ public class Activity implements Serializable {
 	public Activity(String referencePointStart, String referencePointEnd, City cityStart, City cityEnd,
 			String typeRoute, String nameRoute, LocalTime timeStart, boolean happenOnRain, boolean happenOnSun,
 			boolean happenOnHeat, boolean happenOnCold, boolean forBegginers, boolean forRegulars, boolean forExperts,
-			float distance, float altimetry, float averageSpeed, Integer minPeople, Frequency frequency, LocalDate date,
+			BigDecimal distance, BigDecimal altimetry, BigDecimal averageSpeed, Integer minPeople, Frequency frequency, LocalDate date,
 			LocalTime totalTime, boolean active, Sport sport, User owner) {
 		super();
 		this.referencePointStart = referencePointStart;
@@ -129,7 +130,7 @@ public class Activity implements Serializable {
 		this.forRegulars = obj.getDetails().isForRegulars();
 		this.forExperts = obj.getDetails().isForExperts();
 		this.distance = obj.getDetails().getDistance();
-		this.altimetry = obj.getDetails().getDistance();
+		this.altimetry = obj.getDetails().getAltimetry();
 		this.averageSpeed = obj.getDetails().getAverageSpeed();
 		this.minPeople = obj.getDetails().getMinPeople();
 	
@@ -253,27 +254,27 @@ public class Activity implements Serializable {
 		this.forExperts = forExperts;
 	}
 
-	public float getDistance() {
+	public BigDecimal getDistance() {
 		return distance;
 	}
 
-	public void setDistance(float distance) {
+	public void setDistance(BigDecimal distance) {
 		this.distance = distance;
 	}
 
-	public float getAltimetry() {
+	public BigDecimal getAltimetry() {
 		return altimetry;
 	}
 
-	public void setAltimetry(float altimetry) {
+	public void setAltimetry(BigDecimal altimetry) {
 		this.altimetry = altimetry;
 	}
 
-	public float getAverageSpeed() {
+	public BigDecimal getAverageSpeed() {
 		return averageSpeed;
 	}
 
-	public void setAverageSpeed(float averageSpeed) {
+	public void setAverageSpeed(BigDecimal averageSpeed) {
 		this.averageSpeed = averageSpeed;
 	}
 

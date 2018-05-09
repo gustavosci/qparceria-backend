@@ -1,5 +1,7 @@
 package br.com.qparceria;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -98,13 +100,18 @@ public class QparceriaApplication implements CommandLineRunner {
 		userRepo.saveAll(Arrays.asList(user1, user2));
 		
 		Activity act1 = new Activity("Posto Ipiranga", "Tintas Santos", city1, city1, "Estrada", "Banda da hora", 
-				LocalTime.parse("15:23:00", timeFormatter), false, true, true, true, true, true, false, Float.parseFloat("80.80"), 
-				Float.parseFloat("150.89"), Float.parseFloat("78.90"), 3,
-				Frequency.SPECIFIC_DATE, LocalDate.parse("10/05/2018", dateFormatter), LocalTime.parse("01:30:00", timeFormatter), true, sport2, user1);
+				LocalTime.parse("15:23:00", timeFormatter), false, true, true, true, true, true, false, 
+				new BigDecimal("80.80").setScale(2, RoundingMode.HALF_EVEN), 
+				new BigDecimal("150.89").setScale(2, RoundingMode.HALF_EVEN), 
+				new BigDecimal("78.90").setScale(2, RoundingMode.HALF_EVEN),
+				3, Frequency.SPECIFIC_DATE, LocalDate.parse("10/05/2018", dateFormatter), 
+				LocalTime.parse("01:30:00", timeFormatter), true, sport2, user1);
 		Activity act2 = new Activity("Centro", "Amaral", city3, city1, "Barro e terra", "Rota do café", 
-				LocalTime.parse("18:23:19", timeFormatter), true, false, true, true, false, false, true, Float.parseFloat("80.80"), 
-				Float.parseFloat("150.89"), Float.parseFloat("78.90"), 10,
-				Frequency.REGULAR, null, LocalTime.parse("02:58:20", timeFormatter), true, sport1, user2);
+				LocalTime.parse("18:23:19", timeFormatter), true, false, true, true, false, false, true, 
+				new BigDecimal("80.80").setScale(2, RoundingMode.HALF_EVEN), 
+				new BigDecimal("150.89").setScale(2, RoundingMode.HALF_EVEN),
+				new BigDecimal("78.90").setScale(2, RoundingMode.HALF_EVEN),
+				10, Frequency.REGULAR, null, LocalTime.parse("02:58:20", timeFormatter), true, sport1, user2);
 		Set<WeekDays> days = new HashSet<>();	
 		days.add(WeekDays.MONDAY);
 		days.add(WeekDays.THURSDAY);

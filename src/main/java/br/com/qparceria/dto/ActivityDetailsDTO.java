@@ -1,6 +1,7 @@
 package br.com.qparceria.dto;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 import br.com.qparceria.services.validations.UserSave;
 
@@ -17,9 +18,9 @@ public class ActivityDetailsDTO implements Serializable {
 	private boolean forRegulars;
 	private boolean forExperts;
 	
-	private float distance;
-	private float altimetry;
-	private float averageSpeed;
+	private BigDecimal distance;
+	private BigDecimal altimetry;
+	private BigDecimal averageSpeed;
 	private Integer minPeople;
 	
 	public ActivityDetailsDTO() {		
@@ -81,27 +82,27 @@ public class ActivityDetailsDTO implements Serializable {
 		this.forExperts = forExperts;
 	}
 
-	public float getDistance() {
+	public BigDecimal getDistance() {
 		return distance;
 	}
 
-	public void setDistance(float distance) {
+	public void setDistance(BigDecimal distance) {
 		this.distance = distance;
 	}
 
-	public float getAltimetry() {
+	public BigDecimal getAltimetry() {
 		return altimetry;
 	}
 
-	public void setAltimetry(float altimetry) {
+	public void setAltimetry(BigDecimal altimetry) {
 		this.altimetry = altimetry;
 	}
 
-	public float getAverageSpeed() {
+	public BigDecimal getAverageSpeed() {
 		return averageSpeed;
 	}
 
-	public void setAverageSpeed(float averageSpeed) {
+	public void setAverageSpeed(BigDecimal averageSpeed) {
 		this.averageSpeed = averageSpeed;
 	}
 
