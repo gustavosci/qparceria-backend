@@ -134,8 +134,8 @@ public class Activity implements Serializable {
 		this.averageSpeed = obj.getDetails().getAverageSpeed();
 		this.minPeople = obj.getDetails().getMinPeople();
 	
-		if(obj.getSchedule().getFrequency() != null) {
-			this.frequency = obj.getSchedule().getFrequency().getId();	
+		if(obj.getSchedule().getFrequencyEnum() != null) {
+			this.frequency = obj.getSchedule().getFrequencyEnum().getId();	
 		}
 		this.date = obj.getSchedule().getDate();
 		

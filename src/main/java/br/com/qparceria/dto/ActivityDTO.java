@@ -5,6 +5,8 @@ import java.time.LocalTime;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import br.com.qparceria.domain.Activity;
+import br.com.qparceria.domain.enuns.WeekDays;
 import br.com.qparceria.services.validations.ActivitySave;
 
 @ActivitySave
@@ -16,7 +18,9 @@ public class ActivityDTO implements Serializable {
 	private String referencePointStart;
 	private String referencePointEnd;
 	private Integer cityStartId;
+	private Integer ufStartId;
 	private Integer cityEndId;
+	private Integer ufEndId;
 	private String typeRoute;
 	private String nameRoute;
 	@JsonFormat(pattern="HH:mm:ss")
@@ -31,6 +35,57 @@ public class ActivityDTO implements Serializable {
 	
 	public ActivityDTO() {		
 	}
+	
+	public ActivityDTO(Activity obj) {
+		super();
+		this.id = obj.getId();
+		this.referencePointStart = obj.getReferencePointStart();
+		this.referencePointEnd = obj.getReferencePointEnd();
+		this.cityStartId = obj.getCityStart().getId();
+		this.ufStartId = obj.getCityStart().getUf().getId();
+		this.cityEndId = obj.getCityEnd().getId();
+		this.ufEndId = obj.getCityEnd().getUf().getId();
+		this.typeRoute = obj.getTypeRoute();
+		this.nameRoute = obj.getNameRoute();
+		this.timeStart = obj.getTimeStart();
+		this.totalTime = obj.getTotalTime();
+		
+		this.schedule = new ActivityScheduleDTO();		
+		this.schedule.setFrequency(obj.getFrequency());
+		this.schedule.setDate(obj.getDate());
+		for(WeekDays w : obj.getDays()) {
+			if(w.equals(WeekDays.MONDAY)) {
+				this.schedule.setMonday(true);
+			} else if (w.equals(WeekDays.TUESDAY)) {
+				this.schedule.setTuesday(true);
+			} else if (w.equals(WeekDays.WEDNESDAY)) {
+				this.schedule.setWednesday(true);
+			} else if (w.equals(WeekDays.THURSDAY)) {
+				this.schedule.setThursday(true);
+			} else if (w.equals(WeekDays.FRIDAY)) {
+				this.schedule.setFriday(true);
+			} else if (w.equals(WeekDays.SATURDAY)) {
+				this.schedule.setSaturday(true);
+			} else if (w.equals(WeekDays.SUNDAY)) {
+				this.schedule.setSunday(true);
+			}			
+		}
+
+		this.details = new ActivityDetailsDTO();		
+		this.details.setHappenOnRain(obj.isHappenOnRain());
+		this.details.setHappenOnSun(obj.isHappenOnSun());
+		this.details.setHappenOnHeat(obj.isHappenOnHeat());
+		this.details.setHappenOnCold(obj.isHappenOnCold());
+		this.details.setForBegginers(obj.isForBegginers());
+		this.details.setForRegulars(obj.isForRegulars());
+		this.details.setForExperts(obj.isForExperts());
+		this.details.setDistance(obj.getDistance());
+		this.details.setAltimetry(obj.getAltimetry());
+		this.details.setAverageSpeed(obj.getAverageSpeed());
+		this.details.setMinPeople(obj.getMinPeople());
+		
+		this.setSportId(obj.getSport().getId());
+	}	
 
 	public Integer getId() {
 		return id;
@@ -126,6 +181,22 @@ public class ActivityDTO implements Serializable {
 
 	public void setSportId(Integer sportId) {
 		this.sportId = sportId;
+	}
+
+	public Integer getUfStartId() {
+		return ufStartId;
+	}
+
+	public void setUfStartId(Integer ufStartId) {
+		this.ufStartId = ufStartId;
+	}
+
+	public Integer getUfEndId() {
+		return ufEndId;
+	}
+
+	public void setUfEndId(Integer ufEndId) {
+		this.ufEndId = ufEndId;
 	}
 				
 }

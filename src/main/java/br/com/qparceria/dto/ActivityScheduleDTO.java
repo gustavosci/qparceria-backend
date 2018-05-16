@@ -26,10 +26,15 @@ public class ActivityScheduleDTO implements Serializable {
 	public ActivityScheduleDTO() {		
 	}
 
-	public Frequency getFrequency() {
+	public Integer getFrequency() {
+		return frequency;
+	}
+
+	public Frequency getFrequencyEnum() {
 		return Frequency.toEnum(frequency);
 	}
 
+	
 	public void setFrequency(Frequency frequency) {
 		this.frequency = frequency.getId();
 	}

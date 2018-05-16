@@ -28,10 +28,10 @@ public class ActivityResource {
 	private ActivityService service;
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)	
-	public ResponseEntity<Activity> find(@PathVariable Integer id) {
+	public ResponseEntity<ActivityDTO> find(@PathVariable Integer id) {
 		Activity obj = service.find(id);
-		return ResponseEntity.ok().body(obj);
-	}
+		return ResponseEntity.ok().body(new ActivityDTO(obj));
+	}	
 	
 	@RequestMapping(method=RequestMethod.POST)
 	public ResponseEntity<Void> insert(@Valid @RequestBody ActivityDTO objDTO){
