@@ -16,4 +16,9 @@ public interface ActivityRepository extends JpaRepository<Activity, Integer>{
 	@Query("SELECT obj FROM Activity obj WHERE obj.owner.id = :owner_id")
 	@Transactional(readOnly=true)
 	List<Activity> findAllByOwner(@Param("owner_id") Integer idOwner);
+	
+	@Query("SELECT obj FROM Activity obj WHERE obj.sport.id = :sport_id AND obj.cityStart.id = :citystart_id")
+	@Transactional(readOnly=true)
+	List<Activity> search(@Param("sport_id") Integer idsport, @Param("citystart_id") Integer idcitystart);
+
 }

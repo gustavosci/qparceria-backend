@@ -61,6 +61,14 @@ public class ActivityService {
 		return repo.findAllByOwner(userSS.getId());
 	}
 	
+	public List<Activity> search(Integer sportId, Integer cityStartId) {
+		UserSS userSS = UserLoggedService.authenticated();
+		if (userSS == null) {
+			throw new AuthorizationException("Acesso negado");
+		}		
+		return repo.search(sportId, cityStartId);
+	}	
+	
 	@Transactional
 	public Activity insert(Activity obj) {
 		obj.setId(null);
