@@ -1,6 +1,8 @@
 package br.com.qparceria.resources;
 
 import java.net.URI;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -15,6 +17,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.qparceria.domain.Activity;
 import br.com.qparceria.dto.ActivityDTO;
+import br.com.qparceria.dto.ActivitySimpleConsultDTO;
 import br.com.qparceria.services.ActivityService;
 
 @RestController
@@ -52,6 +55,12 @@ public class ActivityResource {
 		service.delete(id);
 		return ResponseEntity.noContent().build();
 	}
-
+	
+	@RequestMapping(value="/my", method=RequestMethod.GET)	
+	public ResponseEntity<List<ActivitySimpleConsultDTO>> findAll() {
+		List<Activity> list = service.findAllOfUserLogged();
+		List<ActivitySimpleConsultDTO> listDTO = list.stream().map(obj -> new ActivitySimpleConsultDTO(obj)).collect(Collectors.toList());						
+		return ResponseEntity.ok().body(listDTO);
+	}
 
 }

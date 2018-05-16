@@ -53,6 +53,14 @@ public class ActivityService {
 		return repo.findAll();
 	}
 	
+	public List<Activity> findAllOfUserLogged() {
+		UserSS userSS = UserLoggedService.authenticated();
+		if (userSS == null) {
+			throw new AuthorizationException("Acesso negado");
+		}		
+		return repo.findAllByOwner(userSS.getId());
+	}
+	
 	@Transactional
 	public Activity insert(Activity obj) {
 		obj.setId(null);
