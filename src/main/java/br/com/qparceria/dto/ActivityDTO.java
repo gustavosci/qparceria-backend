@@ -32,6 +32,7 @@ public class ActivityDTO implements Serializable {
 	private ActivityDetailsDTO details;
 
 	private Integer sportId;
+	private Integer ownerId;
 	
 	public ActivityDTO() {		
 	}
@@ -84,7 +85,8 @@ public class ActivityDTO implements Serializable {
 		this.details.setAverageSpeed(obj.getAverageSpeed());
 		this.details.setMinPeople(obj.getMinPeople());
 		
-		this.setSportId(obj.getSport().getId());
+		this.sportId = obj.getSport().getId();
+		this.ownerId = obj.getOwner().getId();
 	}	
 
 	public Integer getId() {
@@ -197,6 +199,14 @@ public class ActivityDTO implements Serializable {
 
 	public void setUfEndId(Integer ufEndId) {
 		this.ufEndId = ufEndId;
+	}
+
+	public Integer getOwnerId() {
+		return ownerId;
+	}
+
+	public void setOwnerId(Integer ownerId) {
+		this.ownerId = ownerId;
 	}
 				
 }
