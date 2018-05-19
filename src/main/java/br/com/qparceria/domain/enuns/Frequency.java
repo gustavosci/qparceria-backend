@@ -2,8 +2,8 @@ package br.com.qparceria.domain.enuns;
 
 public enum Frequency {
 	
-	SPECIFIC_DATE(0, "Data específica"),
-	REGULAR(1, "Regular");
+	SPECIFIC_DATE(1, "Data específica"),
+	REGULAR(2, "Regular");
 	
 	private int id;
 	private String describe;
