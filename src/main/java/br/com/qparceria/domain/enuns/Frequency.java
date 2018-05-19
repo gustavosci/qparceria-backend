@@ -2,21 +2,25 @@ package br.com.qparceria.domain.enuns;
 
 public enum Frequency {
 	
-	SPECIFIC_DATE(1, "Data específica"),
-	REGULAR(2, "Regular");
+	SPECIFIC_DATE(0, "Data específica"),
+	REGULAR(1, "Regular");
 	
 	private int id;
 	private String describe;
 	
 	private Frequency(int id, String describe) {
 		this.id = id;
-		this.setDescribe(describe);
+		this.describe = describe;
 	}
 	
 	public int getId() {
 		return id;
 	}
-	
+
+	public String getDescribe() {
+		return describe;
+	}
+
 	public static Frequency toEnum(Integer id) {
 		if( id == null) {
 			return null;
@@ -29,13 +33,5 @@ public enum Frequency {
 		}
 		
 		throw new IllegalArgumentException("Id inválido: " + id);
-	}
-
-	public String getDescribe() {
-		return describe;
-	}
-
-	public void setDescribe(String describe) {
-		this.describe = describe;
 	}
 }

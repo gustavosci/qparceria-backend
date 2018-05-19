@@ -36,7 +36,7 @@ public class ActivityScheduleDTO implements Serializable {
 
 	
 	public void setFrequency(Frequency frequency) {
-		this.frequency = frequency.getId();
+		this.frequency = frequency.getId();		
 	}
 
 	public LocalDate getDate() {

@@ -157,7 +157,7 @@ public class UserDTO implements Serializable {
 	}
 
 	public void setGender(Gender gender) {
-		this.gender = gender.getId();;
+		this.gender = gender.getId();
 	}
 
 	public LocalDate getBirthDate() {
