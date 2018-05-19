@@ -25,8 +25,6 @@ public class ActivityDTO implements Serializable {
 	private String nameRoute;
 	@JsonFormat(pattern="HH:mm:ss")
 	private LocalTime timeStart;
-	@JsonFormat(pattern="HH:mm:ss")
-	private LocalTime totalTime;
 
 	private ActivityScheduleDTO schedule;
 	private ActivityDetailsDTO details;
@@ -49,7 +47,6 @@ public class ActivityDTO implements Serializable {
 		this.typeRoute = obj.getTypeRoute();
 		this.nameRoute = obj.getNameRoute();
 		this.timeStart = obj.getTimeStart();
-		this.totalTime = obj.getTotalTime();
 		
 		this.schedule = new ActivityScheduleDTO();		
 		this.schedule.setFrequency(obj.getFrequency());
@@ -151,14 +148,6 @@ public class ActivityDTO implements Serializable {
 
 	public void setTimeStart(LocalTime timeStart) {
 		this.timeStart = timeStart;
-	}
-
-	public LocalTime getTotalTime() {
-		return totalTime;
-	}
-
-	public void setTotalTime(LocalTime totalTime) {
-		this.totalTime = totalTime;
 	}
 
 	public ActivityScheduleDTO getSchedule() {

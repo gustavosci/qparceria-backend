@@ -43,8 +43,6 @@ public class Activity implements Serializable {
 	private String nameRoute;
 	@JsonFormat(pattern="HH:mm:ss")
 	private LocalTime timeStart;
-	@JsonFormat(pattern="HH:mm:ss")
-	private LocalTime totalTime;
 	
 	private boolean happenOnRain;
 	private boolean happenOnSun;
@@ -84,7 +82,7 @@ public class Activity implements Serializable {
 			String typeRoute, String nameRoute, LocalTime timeStart, boolean happenOnRain, boolean happenOnSun,
 			boolean happenOnHeat, boolean happenOnCold, boolean forBegginers, boolean forRegulars, boolean forExperts,
 			BigDecimal distance, BigDecimal altimetry, BigDecimal averageSpeed, Integer minPeople, Frequency frequency, LocalDate date,
-			LocalTime totalTime, boolean active, Sport sport, User owner) {
+			boolean active, Sport sport, User owner) {
 		super();
 		this.referencePointStart = referencePointStart;
 		this.referencePointEnd = referencePointEnd;
@@ -106,7 +104,6 @@ public class Activity implements Serializable {
 		this.minPeople = minPeople;
 		this.frequency = frequency.getId();
 		this.date = date;
-		this.totalTime = totalTime;
 		this.active = active;
 		this.sport = sport;
 		this.owner = owner;
@@ -120,7 +117,6 @@ public class Activity implements Serializable {
 		this.typeRoute = obj.getTypeRoute();
 		this.nameRoute = obj.getNameRoute();
 		this.timeStart = obj.getTimeStart();
-		this.totalTime = obj.getTotalTime();
 		
 		this.happenOnRain = obj.getDetails().isHappenOnRain();
 		this.happenOnSun = obj.getDetails().isHappenOnSun();
@@ -332,14 +328,6 @@ public class Activity implements Serializable {
 
 	public void setTimeStart(LocalTime timeStart) {
 		this.timeStart = timeStart;
-	}
-
-	public LocalTime getTotalTime() {
-		return totalTime;
-	}
-
-	public void setTotalTime(LocalTime totalTime) {
-		this.totalTime = totalTime;
 	}
 
 	public Set<WeekDays> getDays() {

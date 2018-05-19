@@ -105,13 +105,13 @@ public class QparceriaApplication implements CommandLineRunner {
 				new BigDecimal("150.89").setScale(2, RoundingMode.HALF_EVEN), 
 				new BigDecimal("78.90").setScale(2, RoundingMode.HALF_EVEN),
 				3, Frequency.SPECIFIC_DATE, LocalDate.parse("10/05/2018", dateFormatter), 
-				LocalTime.parse("01:30:00", timeFormatter), true, sport2, user1);
+				true, sport2, user1);
 		Activity act2 = new Activity("Centro", "Amaral", city3, city1, "Barro e terra", "Rota do café", 
 				LocalTime.parse("18:23:19", timeFormatter), true, false, true, true, false, false, true, 
 				new BigDecimal("80.80").setScale(2, RoundingMode.HALF_EVEN), 
 				new BigDecimal("150.89").setScale(2, RoundingMode.HALF_EVEN),
 				new BigDecimal("78.90").setScale(2, RoundingMode.HALF_EVEN),
-				10, Frequency.REGULAR, null, LocalTime.parse("02:58:20", timeFormatter), true, sport1, user2);
+				10, Frequency.REGULAR, null, true, sport1, user2);
 		Set<WeekDays> days = new HashSet<>();	
 		days.add(WeekDays.MONDAY);
 		days.add(WeekDays.THURSDAY);

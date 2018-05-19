@@ -158,7 +158,6 @@ public class ActivityService {
 		newObj.setNameRoute(obj.getNameRoute());
 		newObj.setTypeRoute(obj.getTypeRoute());
 		newObj.setTimeStart(obj.getTimeStart());
-		newObj.setTotalTime(obj.getTotalTime());
 		
 		newObj.setHappenOnRain(obj.isHappenOnRain());
 		newObj.setHappenOnSun(obj.isHappenOnSun());
