@@ -34,6 +34,12 @@ public class ActivityResource {
 		return ResponseEntity.ok().body(new ActivityDTO(obj));
 	}	
 	
+	@RequestMapping(value="/detail/{id}", method=RequestMethod.GET)	
+	public ResponseEntity<Activity> findByIdDetail(@PathVariable Integer id) {
+		Activity obj = service.find(id);
+		return ResponseEntity.ok().body(obj);
+	}	
+
 	@RequestMapping(method=RequestMethod.POST)
 	public ResponseEntity<Void> insert(@Valid @RequestBody ActivityDTO objDTO){
 		Activity obj = service.fromDTO(objDTO);

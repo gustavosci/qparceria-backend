@@ -59,7 +59,7 @@ public class Activity implements Serializable {
 	private Integer minPeople;
 	
 	private Integer frequency;
-	@JsonFormat(pattern="ddMMyyyy")
+	@JsonFormat(pattern="dd/MM/yyyy")
 	private LocalDate date;
 	@ElementCollection
 	@CollectionTable(name="DAYS_ACTIVITY")
