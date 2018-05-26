@@ -1,5 +1,6 @@
 package br.com.qparceria.resources;
 
+import java.math.BigDecimal;
 import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -19,6 +20,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import br.com.qparceria.domain.Activity;
 import br.com.qparceria.dto.ActivityDTO;
 import br.com.qparceria.dto.ActivitySimpleConsultDTO;
+import br.com.qparceria.resources.utils.URL;
 import br.com.qparceria.services.ActivityService;
 
 @RestController
@@ -73,8 +75,12 @@ public class ActivityResource {
 	@RequestMapping(value="/search", method=RequestMethod.GET)	
 	public ResponseEntity<List<ActivitySimpleConsultDTO>> search(
 			@RequestParam(value="sport", defaultValue="0") Integer sportId, 
-			@RequestParam(value="citystart", defaultValue="0") Integer cityStartId){ 
-		List<Activity> list = service.search(sportId, cityStartId);
+			@RequestParam(value="citystart", defaultValue="0") Integer cityStartId,
+			@RequestParam(value="maxdistance", defaultValue="0") String strMaxDistance,
+			@RequestParam(value="maxaverage", defaultValue="0") String strMaxAverage){ 
+		BigDecimal maxDistance = URL.toBigDecimal(strMaxDistance);
+		BigDecimal maxAverage = URL.toBigDecimal(strMaxAverage);
+		List<Activity> list = service.search(sportId, cityStartId, maxDistance, maxAverage);
 		List<ActivitySimpleConsultDTO> listDTO = list.stream().map(obj -> new ActivitySimpleConsultDTO(obj)).collect(Collectors.toList());						
 		return ResponseEntity.ok().body(listDTO);
 	}

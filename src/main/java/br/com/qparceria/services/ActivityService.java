@@ -1,5 +1,6 @@
 package br.com.qparceria.services;
 
+import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -61,12 +62,13 @@ public class ActivityService {
 		return repo.findAllByOwner(userSS.getId());
 	}
 	
-	public List<Activity> search(Integer sportId, Integer cityStartId) {
+	public List<Activity> search(Integer sportId, Integer cityStartId, 
+			BigDecimal maxDistance, BigDecimal maxAverage) {
 		UserSS userSS = UserLoggedService.authenticated();
 		if (userSS == null) {
 			throw new AuthorizationException("Acesso negado");
 		}		
-		return repo.search(sportId, cityStartId);
+		return repo.search(sportId, cityStartId, maxDistance, maxAverage);
 	}	
 	
 	@Transactional
