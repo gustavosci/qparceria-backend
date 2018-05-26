@@ -44,7 +44,7 @@ public class User implements Serializable {
 	@JsonIgnore
 	private String password;
 	private Integer gender;
-	@JsonFormat(pattern="dd/MM/yyyy")
+	@JsonFormat(pattern="ddMMyyyy")
 	private LocalDate birthDate;
 	private String facebook;
 	private String twitter;

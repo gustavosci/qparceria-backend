@@ -41,7 +41,7 @@ public class Activity implements Serializable {
 	private City cityEnd;
 	private String typeRoute;
 	private String nameRoute;
-	@JsonFormat(pattern="HH:mm:ss")
+	@JsonFormat(pattern="HHmmss")
 	private LocalTime timeStart;
 	
 	private boolean happenOnRain;
@@ -59,7 +59,7 @@ public class Activity implements Serializable {
 	private Integer minPeople;
 	
 	private Integer frequency;
-	@JsonFormat(pattern="dd/MM/yyyy")
+	@JsonFormat(pattern="ddMMyyyy")
 	private LocalDate date;
 	@ElementCollection
 	@CollectionTable(name="DAYS_ACTIVITY")

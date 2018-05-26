@@ -13,7 +13,7 @@ public class ActivityScheduleDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Integer frequency;
-	@JsonFormat(pattern="dd/MM/yyyy")
+	@JsonFormat(pattern="ddMMyyyy")
 	private LocalDate date;
 	private boolean monday;
 	private boolean tuesday;

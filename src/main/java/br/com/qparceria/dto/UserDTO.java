@@ -31,7 +31,7 @@ public class UserDTO implements Serializable {
 	@NotEmpty(message="Preenchimento obrigatório")
 	private String password;
 	private Integer gender;
-	@JsonFormat(pattern="dd/MM/yyyy")
+	@JsonFormat(pattern="ddMMyyyy")
 	private LocalDate birthDate;
 	private String facebook;
 	private String twitter;
@@ -41,7 +41,7 @@ public class UserDTO implements Serializable {
 
 	private Integer adressId;
 	private String street;
-	private Integer number;
+	private String number;
 	private String complement;
 	private String neighborhood;
 	private Integer cep;
@@ -224,11 +224,11 @@ public class UserDTO implements Serializable {
 		this.street = street;
 	}
 
-	public Integer getNumber() {
+	public String getNumber() {
 		return number;
 	}
 
-	public void setNumber(Integer number) {
+	public void setNumber(String number) {
 		this.number = number;
 	}
 

@@ -23,7 +23,7 @@ public class ActivityDTO implements Serializable {
 	private Integer ufEndId;
 	private String typeRoute;
 	private String nameRoute;
-	@JsonFormat(pattern="HH:mm:ss")
+	@JsonFormat(pattern="HHmmss")
 	private LocalTime timeStart;
 
 	private ActivityScheduleDTO schedule;

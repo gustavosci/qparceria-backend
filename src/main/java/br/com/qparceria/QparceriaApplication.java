@@ -71,8 +71,8 @@ public class QparceriaApplication implements CommandLineRunner {
 		ufRepo.saveAll(Arrays.asList(uf1, uf2));
 		cityRepo.saveAll(Arrays.asList(city1, city2, city3));
 		
-		Adress ad1 = new Adress(null, "Barão do Rio Branco", 463, "", "Santa Fé", 93800000, city3);
-		Adress ad2 = new Adress(null, "Teste Adress 2", 999, "Nao tem", "Centro", 93600000, city2);
+		Adress ad1 = new Adress(null, "Barão do Rio Branco", "463", "", "Santa Fé", 93800000, city3);
+		Adress ad2 = new Adress(null, "Teste Adress 2", "999", "Nao tem", "Centro", 93600000, city2);
 		adressRepo.saveAll(Arrays.asList(ad1, ad2));
 		
 		DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
