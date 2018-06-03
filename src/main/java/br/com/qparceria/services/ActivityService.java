@@ -1,6 +1,7 @@
 package br.com.qparceria.services;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -13,12 +14,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.com.qparceria.domain.Activity;
 import br.com.qparceria.domain.City;
+import br.com.qparceria.domain.Match;
 import br.com.qparceria.domain.Sport;
 import br.com.qparceria.domain.User;
 import br.com.qparceria.domain.enuns.WeekDays;
 import br.com.qparceria.dto.ActivityDTO;
 import br.com.qparceria.repositories.ActivityRepository;
 import br.com.qparceria.repositories.CityRepository;
+import br.com.qparceria.repositories.MatchRepository;
 import br.com.qparceria.repositories.SportRepository;
 import br.com.qparceria.repositories.UserRepository;
 import br.com.qparceria.security.UserSS;
@@ -37,7 +40,8 @@ public class ActivityService {
 	private CityRepository cityRepo; 
 	@Autowired
 	private SportRepository sportRepo; 
-
+	@Autowired
+	private MatchRepository matchRepo; 
 	
 	public Activity find(Integer id) {		
 		UserSS userSS = UserLoggedService.authenticated();
@@ -82,7 +86,22 @@ public class ActivityService {
 		updateData(newObj, obj);
 		return repo.save(newObj);
 	}
-	
+
+	public Match match(Integer id) {
+		Activity act = find(id);
+		UserSS userSS = UserLoggedService.authenticated();
+		if(userSS.getId() == act.getOwner().getId()) {
+			throw new DataIntegrityException("Não é possível realizar match em atividade própria");
+		}
+		for(Match m : act.getMatches()) {
+			if(m.getUser().getId() == userSS.getId()) {
+				throw new DataIntegrityException("Usuário já realizou match na atividade");
+			}
+		}
+		Match match = new Match(act, loadUser(userSS.getId()), LocalDate.now());
+		return matchRepo.save(match);
+	}
+
 	public void delete(Integer id) {
 		find(id);
 		try {
@@ -90,6 +109,22 @@ public class ActivityService {
 		}
 		catch (DataIntegrityViolationException e){
 			throw new DataIntegrityException("Não é possível excluir a atividade " + id);
+		}		
+	}
+	
+	public void deleteMatch(Integer id) {
+		Activity act = find(id);
+		try {
+			UserSS userSS = UserLoggedService.authenticated();
+			for(Match m : act.getMatches()) {
+				if(m.getUser().getId() == userSS.getId()) {
+					matchRepo.delete(m);
+					break;
+				}
+			}						
+		}
+		catch (DataIntegrityViolationException e){
+			throw new DataIntegrityException("Não é possível excluir o match da atividade " + id);
 		}		
 	}
 	

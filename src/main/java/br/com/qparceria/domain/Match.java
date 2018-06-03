@@ -1,15 +1,19 @@
 package br.com.qparceria.domain;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-public class Match {
+public class Match implements Serializable {
+	private static final long serialVersionUID = 1L;
 
+	@JsonIgnore
 	@EmbeddedId
 	private MatchPK id = new MatchPK();
 	
@@ -42,6 +46,7 @@ public class Match {
 		this.date = date;
 	}
 	
+	@JsonIgnore
 	public Activity getActivity() {
 		return this.id.getActivity();
 	}
@@ -73,6 +78,11 @@ public class Match {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Match [id=" + id + ", date=" + date + "]";
 	}	
 	
 }
