@@ -16,6 +16,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -73,7 +74,10 @@ public class Activity implements Serializable {
 
 	@ManyToOne
 	@JoinColumn(name="owner_id")
-	private User owner;	
+	private User owner;
+	
+	@OneToMany(mappedBy="id.activity")
+	private Set<Match> matches = new HashSet<>();
 
 	public Activity() {		
 	}
@@ -336,6 +340,14 @@ public class Activity implements Serializable {
 
 	public void setDays(Set<WeekDays> days) {		
 		this.days = days.stream().map(day -> day.getId()).collect(Collectors.toSet());
+	}
+
+	public Set<Match> getMatches() {
+		return matches;
+	}
+
+	public void setMatches(Set<Match> matches) {
+		this.matches = matches;
 	}
 
 	@Override

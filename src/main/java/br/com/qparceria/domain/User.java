@@ -21,6 +21,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -70,6 +71,9 @@ public class User implements Serializable {
 	@ElementCollection(fetch=FetchType.EAGER)
 	@CollectionTable(name="PROFILES")
 	private Set<Integer> profiles = new HashSet<>();
+
+	@OneToMany(mappedBy="id.user")
+	private Set<Match> matches = new HashSet<>();
 	
 	public User() {
 	}
@@ -234,6 +238,14 @@ public class User implements Serializable {
 		this.sports = sports;
 	}
 	
+	public Set<Match> getMatches() {
+		return matches;
+	}
+
+	public void setMatches(Set<Match> matches) {
+		this.matches = matches;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
