@@ -7,7 +7,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Embeddable
-public class MatchPK implements Serializable {
+public class MatePK implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@ManyToOne
@@ -46,7 +46,7 @@ public class MatchPK implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		MatchPK other = (MatchPK) obj;
+		MatePK other = (MatePK) obj;
 		if (activity == null) {
 			if (other.activity != null)
 				return false;

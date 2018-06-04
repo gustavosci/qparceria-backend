@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 import br.com.qparceria.domain.Activity;
 import br.com.qparceria.domain.Adress;
 import br.com.qparceria.domain.City;
-import br.com.qparceria.domain.Match;
+import br.com.qparceria.domain.Mate;
 import br.com.qparceria.domain.Sport;
 import br.com.qparceria.domain.UF;
 import br.com.qparceria.domain.User;
@@ -116,8 +116,8 @@ public class DBService {
 		act2.setDays(days);
 		activityRepo.saveAll(Arrays.asList(act1, act2));
 		
-		Match m1 = new Match(act1, user2, LocalDate.parse("03/06/2018", dateFormatter));
-		Match m2 = new Match(act2, user1, LocalDate.parse("10/06/2018", dateFormatter));		
+		Mate m1 = new Mate(act1, user2, LocalDate.parse("03/06/2018", dateFormatter));
+		Mate m2 = new Mate(act2, user1, LocalDate.parse("10/06/2018", dateFormatter));		
 		act1.getMatches().addAll(Arrays.asList(m1));
 		act2.getMatches().addAll(Arrays.asList(m2));		
 		user1.getMatches().addAll(Arrays.asList(m2));

@@ -19,6 +19,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import br.com.qparceria.domain.enuns.Frequency;
 import br.com.qparceria.domain.enuns.WeekDays;
@@ -76,8 +77,9 @@ public class Activity implements Serializable {
 	@JoinColumn(name="owner_id")
 	private User owner;
 
+	@JsonIgnore
 	@OneToMany(mappedBy="id.activity")
-	private Set<Match> matches = new HashSet<>();
+	private Set<Mate> matches = new HashSet<>();
 
 	public Activity() {		
 	}
@@ -342,11 +344,11 @@ public class Activity implements Serializable {
 		this.days = days.stream().map(day -> day.getId()).collect(Collectors.toSet());
 	}
 
-	public Set<Match> getMatches() {
+	public Set<Mate> getMatches() {
 		return matches;
 	}
 
-	public void setMatches(Set<Match> matches) {
+	public void setMatches(Set<Mate> matches) {
 		this.matches = matches;
 	}
 

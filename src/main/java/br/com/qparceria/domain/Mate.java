@@ -9,32 +9,37 @@ import javax.persistence.Entity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+/*
+ * 
+ * OBS: Nome da entidade é "Mate" e não "Match", porquê a palavra "match" é reservada no MySQL. 
+ * Todos pontos do sistemas referenciam Match e/ou Matches, mas o nome da Table no DB é "Mate", que também significa combinar 
+ * 
+ */
 @Entity
-public class Match implements Serializable {
+public class Mate implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@JsonIgnore
 	@EmbeddedId
-	private MatchPK id = new MatchPK();
+	private MatePK id = new MatePK();
 	
 	@JsonFormat(pattern="dd/MM/yyyy")
 	private LocalDate date;
 	
-	public Match() {		
+	public Mate() {		
 	}
 
-	public Match(Activity activity, User user, LocalDate date) {
+	public Mate(Activity activity, User user, LocalDate date) {
 		super();
 		this.date = date;
 		this.id.setActivity(activity);
 		this.id.setUser(user);
 	}
 
-	public MatchPK getId() {
+	public MatePK getId() {
 		return id;
 	}
 
-	public void setId(MatchPK id) {
+	public void setId(MatePK id) {
 		this.id = id;
 	}
 
@@ -71,7 +76,7 @@ public class Match implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Match other = (Match) obj;
+		Mate other = (Mate) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;

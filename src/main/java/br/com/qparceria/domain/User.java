@@ -72,8 +72,9 @@ public class User implements Serializable {
 	@CollectionTable(name="PROFILES")
 	private Set<Integer> profiles = new HashSet<>();
 
+	@JsonIgnore
 	@OneToMany(mappedBy="id.user")
-	private Set<Match> matches = new HashSet<>();
+	private Set<Mate> matches = new HashSet<>();
 	
 	public User() {
 	}
@@ -238,11 +239,11 @@ public class User implements Serializable {
 		this.sports = sports;
 	}
 	
-	public Set<Match> getMatches() {
+	public Set<Mate> getMatches() {
 		return matches;
 	}
 
-	public void setMatches(Set<Match> matches) {
+	public void setMatches(Set<Mate> matches) {
 		this.matches = matches;
 	}
 

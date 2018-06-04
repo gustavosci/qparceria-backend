@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.com.qparceria.domain.Activity;
 import br.com.qparceria.domain.City;
-import br.com.qparceria.domain.Match;
+import br.com.qparceria.domain.Mate;
 import br.com.qparceria.domain.Sport;
 import br.com.qparceria.domain.User;
 import br.com.qparceria.domain.enuns.WeekDays;
@@ -87,18 +87,18 @@ public class ActivityService {
 		return repo.save(newObj);
 	}
 
-	public Match match(Integer id) {
+	public Mate match(Integer id) {
 		Activity act = find(id);
 		UserSS userSS = UserLoggedService.authenticated();
 		if(userSS.getId() == act.getOwner().getId()) {
 			throw new DataIntegrityException("Não é possível realizar match em atividade própria");
 		}
-		for(Match m : act.getMatches()) {
+		for(Mate m : act.getMatches()) {
 			if(m.getUser().getId() == userSS.getId()) {
 				throw new DataIntegrityException("Usuário já realizou match na atividade");
 			}
 		}
-		Match match = new Match(act, loadUser(userSS.getId()), LocalDate.now());
+		Mate match = new Mate(act, loadUser(userSS.getId()), LocalDate.now());
 		return matchRepo.save(match);
 	}
 
@@ -116,7 +116,7 @@ public class ActivityService {
 		Activity act = find(id);
 		try {
 			UserSS userSS = UserLoggedService.authenticated();
-			for(Match m : act.getMatches()) {
+			for(Mate m : act.getMatches()) {
 				if(m.getUser().getId() == userSS.getId()) {
 					matchRepo.delete(m);
 					break;
