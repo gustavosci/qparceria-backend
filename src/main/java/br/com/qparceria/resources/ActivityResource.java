@@ -59,21 +59,9 @@ public class ActivityResource {
 		return ResponseEntity.noContent().build();
 	}
 	
-	@RequestMapping(value="/match/{id}", method=RequestMethod.PUT)
-	public ResponseEntity<Void> match(@PathVariable Integer id){
-		service.match(id);
-		return ResponseEntity.noContent().build();
-	}
-		
 	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)	
 	public ResponseEntity<Void> delete(@PathVariable Integer id) {
 		service.delete(id);
-		return ResponseEntity.noContent().build();
-	}
-	
-	@RequestMapping(value="/match/{id}", method=RequestMethod.DELETE)	
-	public ResponseEntity<Void> deleteMatch(@PathVariable Integer id) {
-		service.deleteMatch(id);
 		return ResponseEntity.noContent().build();
 	}
 	

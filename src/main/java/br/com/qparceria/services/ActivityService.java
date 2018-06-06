@@ -115,17 +115,26 @@ public class ActivityService {
 	public void deleteMatch(Integer id) {
 		Activity act = find(id);
 		try {
-			UserSS userSS = UserLoggedService.authenticated();
-			for(Mate m : act.getMatches()) {
-				if(m.getUser().getId() == userSS.getId()) {
-					matchRepo.delete(m);
-					break;
-				}
-			}						
+			Mate m = getUserMatchOnActivity(act); 
+			if( m != null) {
+				matchRepo.delete(m);
+			} else {
+				throw new DataIntegrityException("Não existe match do usuário para a atividade " + id);
+			}
 		}
 		catch (DataIntegrityViolationException e){
 			throw new DataIntegrityException("Não é possível excluir o match da atividade " + id);
 		}		
+	}
+	
+	private Mate getUserMatchOnActivity(Activity act) {
+		UserSS userSS = UserLoggedService.authenticated();
+		for(Mate m : act.getMatches()) {
+			if(m.getUser().getId() == userSS.getId()) {
+				return m;
+			}
+		}				
+		return null;
 	}
 	
 	public Activity fromDTO(ActivityDTO objDTO) {
