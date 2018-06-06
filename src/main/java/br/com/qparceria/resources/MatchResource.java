@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.qparceria.domain.Mate;
 import br.com.qparceria.dto.MatchDTO;
-import br.com.qparceria.services.ActivityService;
 import br.com.qparceria.services.MatchService;
 
 @RestController
@@ -20,20 +19,17 @@ import br.com.qparceria.services.MatchService;
 public class MatchResource {
 	
 	@Autowired
-	private ActivityService actService;
-
-	@Autowired
 	private MatchService matchService;
 
 	@RequestMapping(value="/{id}", method=RequestMethod.POST)
 	public ResponseEntity<Void> match(@PathVariable Integer id){
-		actService.match(id);
+		matchService.insert(id);
 		return ResponseEntity.noContent().build();
 	}
 		
 	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)	
 	public ResponseEntity<Void> deleteMatch(@PathVariable Integer id) {
-		actService.deleteMatch(id);
+		matchService.delete(id);
 		return ResponseEntity.noContent().build();
 	}
 	
