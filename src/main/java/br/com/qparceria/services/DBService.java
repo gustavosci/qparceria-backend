@@ -56,7 +56,6 @@ public class DBService {
 	public void instantiateTestDataBase() {
 		UF uf1 = new UF(null, "Rio Grande do Sul", "RS");
 		UF uf2 = new UF(null, "São Paulo", "SP");
-		UF uf3 = new UF(null, "Rio de Janeiro", "RJ");
 		
 		City city1 = new City(null, "Porto Alegre", uf1);
 		City city2 = new City(null, "Campinas", uf2);
@@ -65,7 +64,7 @@ public class DBService {
 		uf1.getCities().addAll(Arrays.asList(city1, city3));
 		uf2.getCities().addAll(Arrays.asList(city2));
 		
-		ufRepo.saveAll(Arrays.asList(uf1, uf2, uf3));
+		ufRepo.saveAll(Arrays.asList(uf1, uf2));
 		cityRepo.saveAll(Arrays.asList(city1, city2, city3));
 		
 		Adress ad1 = new Adress(null, "Barão do Rio Branco", "463", "", "Santa Fé", 93800000, city3);

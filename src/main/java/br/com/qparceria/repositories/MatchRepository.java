@@ -21,4 +21,7 @@ public interface MatchRepository extends JpaRepository<Mate, Integer>{
 	@Transactional(readOnly=true)
 	List<Mate> findAllReceivedOfUser(@Param("user_id") Integer idUser);
 
+	@Query("SELECT obj FROM Mate obj WHERE obj.id.activity.id = :activity_id")
+	@Transactional(readOnly=true)
+	List<Mate> findMatchesOfActivity(@Param("activity_id") Integer idActivity);
 }

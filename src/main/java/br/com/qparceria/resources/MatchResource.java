@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.qparceria.domain.Mate;
 import br.com.qparceria.dto.MatchDTO;
+import br.com.qparceria.dto.MatchersDTO;
 import br.com.qparceria.services.MatchService;
 
 @RestController
@@ -47,4 +48,9 @@ public class MatchResource {
 		return ResponseEntity.ok().body(listDTO);
 	}
 
+	@RequestMapping(value="/matchers/{id}", method=RequestMethod.GET)	
+	public ResponseEntity<MatchersDTO> findMatchersOfActivity(@PathVariable Integer id) {
+		MatchersDTO matchers = matchService.findMatchersOfActivity(id);
+		return ResponseEntity.ok().body(matchers);
+	}
 }

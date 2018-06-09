@@ -11,6 +11,7 @@ public class UserMatchDTO implements Serializable {
 	private String name;
 	private CityDTO city;
 	private UfDTO uf;
+	private String phone;
 	
 	public UserMatchDTO() {		
 	}
@@ -20,7 +21,10 @@ public class UserMatchDTO implements Serializable {
 		this.id = user.getId();
 		this.name = user.getName();
 		this.city = new CityDTO(user.getAdress().getCity().getId(), user.getAdress().getCity().getName());
-		this.uf = new UfDTO(user.getAdress().getCity().getUf().getId(), user.getAdress().getCity().getUf().getName());
+		this.uf = new UfDTO(user.getAdress().getCity().getUf().getId(), user.getAdress().getCity().getUf().getSigla());
+		if(!user.getPhones().isEmpty()) {
+			this.phone = (String) user.getPhones().toArray()[0];	
+		}	
 	}
 
 	public Integer getId() {
@@ -53,6 +57,14 @@ public class UserMatchDTO implements Serializable {
 
 	public void setUf(UfDTO uf) {
 		this.uf = uf;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}		
 
 }

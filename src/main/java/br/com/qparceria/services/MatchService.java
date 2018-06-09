@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import br.com.qparceria.domain.Activity;
 import br.com.qparceria.domain.Mate;
 import br.com.qparceria.domain.User;
+import br.com.qparceria.dto.MatchersDTO;
+import br.com.qparceria.dto.UserMatchDTO;
 import br.com.qparceria.repositories.MatchRepository;
 import br.com.qparceria.repositories.UserRepository;
 import br.com.qparceria.security.UserSS;
@@ -83,6 +85,27 @@ public class MatchService {
 			throw new AuthorizationException("Acesso negado");
 		}		
 		return matchRepo.findAllReceivedOfUser(userSS.getId());
+	}
+
+	public MatchersDTO findMatchersOfActivity(Integer id) {
+		UserSS userSS = UserLoggedService.authenticated();
+		if (userSS == null) {
+			throw new AuthorizationException("Acesso negado");
+		}		
+		
+		List<Mate> matches = matchRepo.findMatchesOfActivity(id);
+		if(matches.isEmpty()) {
+			new ObjectNotFoundException("Não existem matches para a atividade " + id);
+		}
+		
+		MatchersDTO dto = null;
+		for(Mate m : matches) {
+			if(dto == null) {
+				dto = new MatchersDTO(m);
+			}
+			dto.getMatchers().add(new UserMatchDTO(m.getUser()));
+		}
+		return dto;
 	}
 	
 	private User loadUser(Integer id) {
