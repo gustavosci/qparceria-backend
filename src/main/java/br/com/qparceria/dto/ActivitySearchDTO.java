@@ -11,18 +11,18 @@ public class ActivitySearchDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private ActivitySimpleConsultDTO act;
-	private boolean isUserLoggedMatcher;
+	private boolean userLoggedMatcher;
 	
 	public ActivitySearchDTO() {		
 	}
 
 	public ActivitySearchDTO(Activity obj, Integer idUserLogged) {
 		this.act = new ActivitySimpleConsultDTO(obj);
-		this.isUserLoggedMatcher = false;
+		this.userLoggedMatcher = false;
 		List<Mate> matches = new ArrayList<>(obj.getMatches());
 		for(Mate m : matches) {
 			if(m.getUser().getId() == idUserLogged) {
-				this.isUserLoggedMatcher = true;
+				this.userLoggedMatcher = true;
 				break;
 			}
 		}
@@ -37,11 +37,11 @@ public class ActivitySearchDTO implements Serializable {
 	}
 
 	public boolean isUserLoggedMatcher() {
-		return isUserLoggedMatcher;
+		return userLoggedMatcher;
 	}
 
 	public void setUserLoggedMatcher(boolean isUserLoggedMatcher) {
-		this.isUserLoggedMatcher = isUserLoggedMatcher;
+		this.userLoggedMatcher = isUserLoggedMatcher;
 	}
 
 	
