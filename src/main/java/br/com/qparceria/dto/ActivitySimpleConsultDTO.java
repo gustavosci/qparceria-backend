@@ -6,9 +6,7 @@ import java.time.LocalTime;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import br.com.qparceria.domain.Activity;
-import br.com.qparceria.services.validations.ActivitySave;
 
-@ActivitySave
 public class ActivitySimpleConsultDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -18,6 +16,7 @@ public class ActivitySimpleConsultDTO implements Serializable {
 	private String nameCityStart;
 	private String siglaUFEnd;
 	private String nameCityEnd;
+	private Integer idOwner;
 	private String nameOwner;
 	@JsonFormat(pattern="HH:mm:ss")
 	private LocalTime timeStart;
@@ -33,6 +32,7 @@ public class ActivitySimpleConsultDTO implements Serializable {
 		this.nameCityStart = obj.getCityStart().getName();
 		this.siglaUFEnd = obj.getCityEnd().getUf().getSigla();
 		this.nameCityEnd = obj.getCityEnd().getName();
+		this.idOwner = obj.getOwner().getId();
 		this.nameOwner = obj.getOwner().getName();
 		this.timeStart = obj.getTimeStart();
 		this.describeFrequency = obj.getFrequency().getDescribe();
@@ -77,6 +77,14 @@ public class ActivitySimpleConsultDTO implements Serializable {
 
 	public void setNameCityEnd(String nameCityEnd) {
 		this.nameCityEnd = nameCityEnd;
+	}
+
+	public Integer getIdOwner() {
+		return idOwner;
+	}
+
+	public void setIdOwner(Integer idOwner) {
+		this.idOwner = idOwner;
 	}
 
 	public String getNameOwner() {

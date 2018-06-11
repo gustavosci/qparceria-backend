@@ -19,6 +19,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.qparceria.domain.Activity;
 import br.com.qparceria.dto.ActivityDTO;
+import br.com.qparceria.dto.ActivitySearchDTO;
 import br.com.qparceria.dto.ActivitySimpleConsultDTO;
 import br.com.qparceria.resources.utils.URL;
 import br.com.qparceria.services.ActivityService;
@@ -73,15 +74,16 @@ public class ActivityResource {
 	}
 	
 	@RequestMapping(value="/search", method=RequestMethod.GET)	
-	public ResponseEntity<List<ActivitySimpleConsultDTO>> search(
+	public ResponseEntity<List<ActivitySearchDTO>> search(
 			@RequestParam(value="sport", defaultValue="0") Integer sportId, 
 			@RequestParam(value="citystart", defaultValue="0") Integer cityStartId,
 			@RequestParam(value="maxdistance", defaultValue="0") String strMaxDistance,
-			@RequestParam(value="maxaverage", defaultValue="0") String strMaxAverage){ 
+			@RequestParam(value="maxaverage", defaultValue="0") String strMaxAverage,
+			@RequestParam(value="includesown", defaultValue="false") String strIncludesOwn){ 
 		BigDecimal maxDistance = URL.toBigDecimal(strMaxDistance);
 		BigDecimal maxAverage = URL.toBigDecimal(strMaxAverage);
-		List<Activity> list = service.search(sportId, cityStartId, maxDistance, maxAverage);
-		List<ActivitySimpleConsultDTO> listDTO = list.stream().map(obj -> new ActivitySimpleConsultDTO(obj)).collect(Collectors.toList());						
+		boolean includesOwn = URL.toBoolean(strIncludesOwn);
+		List<ActivitySearchDTO> listDTO = service.search(sportId, cityStartId, maxDistance, maxAverage, includesOwn);
 		return ResponseEntity.ok().body(listDTO);
 	}
 

@@ -24,4 +24,10 @@ public interface MatchRepository extends JpaRepository<Mate, Integer>{
 	@Query("SELECT obj FROM Mate obj WHERE obj.id.activity.id = :activity_id")
 	@Transactional(readOnly=true)
 	List<Mate> findMatchesOfActivity(@Param("activity_id") Integer idActivity);
+	
+	@Query("SELECT obj FROM Mate obj WHERE obj.id.activity.id = :activity_id AND obj.id.user.id = :user_id")
+	@Transactional(readOnly=true)
+	List<Mate> getMatchOfUserLoggedOnAct(@Param("activity_id") Integer idActivit,
+										 @Param("user_id") Integer idUser);
+
 }

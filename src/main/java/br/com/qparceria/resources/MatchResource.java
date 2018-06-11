@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.qparceria.domain.Mate;
 import br.com.qparceria.dto.MatchDTO;
 import br.com.qparceria.dto.MatchersDTO;
+import br.com.qparceria.dto.UserLoggedMatchDTO;
 import br.com.qparceria.services.MatchService;
 
 @RestController
@@ -53,4 +54,11 @@ public class MatchResource {
 		MatchersDTO matchers = matchService.findMatchersOfActivity(id);
 		return ResponseEntity.ok().body(matchers);
 	}
+	
+	@RequestMapping(value="/userlogged/{idAct}", method=RequestMethod.GET)	
+	public ResponseEntity<UserLoggedMatchDTO> isUserLoggedMatcher(@PathVariable Integer idAct) {
+		UserLoggedMatchDTO dto = matchService.isUserLoggedMatcher(idAct);
+		return ResponseEntity.ok().body(dto);
+	}
+
 }

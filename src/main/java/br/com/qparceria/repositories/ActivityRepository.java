@@ -26,9 +26,24 @@ public interface ActivityRepository extends JpaRepository<Activity, Integer>{
 			+ "obj.averageSpeed <= :maxAverage AND "
 			+ "obj.active = true")
 	@Transactional(readOnly=true)
-	List<Activity> search(@Param("sport_id") Integer idsport, 
-						  @Param("citystart_id") Integer idcitystart,
-						  @Param("maxDistance") BigDecimal maxDistance,
-						  @Param("maxAverage") BigDecimal maxAverage);
+	List<Activity> searchIncludesOwn(@Param("sport_id") Integer idsport, 
+					  				 @Param("citystart_id") Integer idcitystart,
+					  				 @Param("maxDistance") BigDecimal maxDistance,
+					  				 @Param("maxAverage") BigDecimal maxAverage);
+	
+	@Query("SELECT obj "
+			+ "FROM Activity obj "
+			+ "WHERE obj.sport.id = :sport_id AND "
+			+ "obj.cityStart.id = :citystart_id AND "
+			+ "obj.distance <= :maxDistance AND "
+			+ "obj.averageSpeed <= :maxAverage AND "
+			+ "obj.owner.id != :userLogged_id AND "			
+			+ "obj.active = true")
+	@Transactional(readOnly=true)
+	List<Activity> searchWithoutOwn(@Param("sport_id") Integer idsport, 
+									@Param("citystart_id") Integer idcitystart,
+					  				@Param("maxDistance") BigDecimal maxDistance,
+					  				@Param("maxAverage") BigDecimal maxAverage,
+					  				@Param("userLogged_id") Integer userLoggedId);
 
 }

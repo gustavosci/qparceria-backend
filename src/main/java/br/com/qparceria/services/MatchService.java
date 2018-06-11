@@ -12,6 +12,7 @@ import br.com.qparceria.domain.Activity;
 import br.com.qparceria.domain.Mate;
 import br.com.qparceria.domain.User;
 import br.com.qparceria.dto.MatchersDTO;
+import br.com.qparceria.dto.UserLoggedMatchDTO;
 import br.com.qparceria.dto.UserMatchDTO;
 import br.com.qparceria.repositories.MatchRepository;
 import br.com.qparceria.repositories.UserRepository;
@@ -107,7 +108,21 @@ public class MatchService {
 		}
 		return dto;
 	}
-	
+
+	public UserLoggedMatchDTO isUserLoggedMatcher(Integer idAct) {
+		UserSS userSS = UserLoggedService.authenticated();
+		if (userSS == null) {
+			throw new AuthorizationException("Acesso negado");
+		}		
+		
+		List<Mate> matches = matchRepo.getMatchOfUserLoggedOnAct(idAct, userSS.getId());
+		if(matches.isEmpty()) {
+			return new UserLoggedMatchDTO(false);
+		} else {
+			return new UserLoggedMatchDTO(true);
+		}
+	}
+
 	private User loadUser(Integer id) {
 		Optional<User> userOpt = userRepo.findById(id);
 		return userOpt.orElseThrow(() -> new ObjectNotFoundException(

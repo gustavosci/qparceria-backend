@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -17,6 +18,7 @@ import br.com.qparceria.domain.Sport;
 import br.com.qparceria.domain.User;
 import br.com.qparceria.domain.enuns.WeekDays;
 import br.com.qparceria.dto.ActivityDTO;
+import br.com.qparceria.dto.ActivitySearchDTO;
 import br.com.qparceria.repositories.ActivityRepository;
 import br.com.qparceria.repositories.CityRepository;
 import br.com.qparceria.repositories.SportRepository;
@@ -61,13 +63,19 @@ public class ActivityService {
 		return repo.findAllByOwner(userSS.getId());
 	}
 	
-	public List<Activity> search(Integer sportId, Integer cityStartId, 
-			BigDecimal maxDistance, BigDecimal maxAverage) {
+	public List<ActivitySearchDTO> search(Integer sportId, Integer cityStartId, 
+			BigDecimal maxDistance, BigDecimal maxAverage, boolean includesOwn) {
 		UserSS userSS = UserLoggedService.authenticated();
 		if (userSS == null) {
 			throw new AuthorizationException("Acesso negado");
+		}	
+		List<Activity> list;
+		if(includesOwn){
+			list = repo.searchIncludesOwn(sportId, cityStartId, maxDistance, maxAverage);
+		} else {
+			list = repo.searchWithoutOwn(sportId, cityStartId, maxDistance, maxAverage, userSS.getId());
 		}		
-		return repo.search(sportId, cityStartId, maxDistance, maxAverage);
+		return list.stream().map(obj -> new ActivitySearchDTO(obj, userSS.getId())).collect(Collectors.toList());
 	}	
 	
 	@Transactional
