@@ -7,6 +7,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 import br.com.qparceria.services.DBService;
+import br.com.qparceria.services.EmailService;
+import br.com.qparceria.services.SMTPEmailService;
 
 @Configuration
 @Profile("dev")
@@ -27,4 +29,10 @@ public class DevConfig {
 		dbService.instantiateTestDataBase();
 		return true;
 	}
+	
+	@Bean
+	public EmailService emailService() {
+		return new SMTPEmailService();
+	}
+
 }
