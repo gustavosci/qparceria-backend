@@ -1,5 +1,6 @@
 package br.com.qparceria.services;
 
+import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,6 +12,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import br.com.qparceria.domain.Adress;
 import br.com.qparceria.domain.City;
@@ -35,12 +37,18 @@ public class UserService {
 	
 	@Autowired
 	private UserRepository repo;
+
 	@Autowired
 	private AdressRepository adressRepo; 
+	
 	@Autowired
 	private CityRepository cityRepo; 
+	
 	@Autowired
-	private SportRepository sportRepo; 
+	private SportRepository sportRepo;
+	
+	@Autowired
+	private S3Service s3Service;
 	
 	public User find(Integer id) {		
 		UserSS userSS = UserLoggedService.authenticated();
@@ -164,6 +172,10 @@ public class UserService {
 		newObj.setAdress(obj.getAdress());
 		newObj.setPhones(obj.getPhones());
 		newObj.setSports(obj.getSports());
+	}
+	
+	public URI uploadPicUser(MultipartFile file) {
+		return s3Service.uploadFile(file);
 	}
 		
 }
