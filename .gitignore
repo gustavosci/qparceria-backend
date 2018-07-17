@@ -9,7 +9,7 @@ target/
 .settings
 .springBeans
 .sts4-cache
-*.properties
+src/main/resources/*.properties
 
 ### IntelliJ IDEA ###
 .idea
