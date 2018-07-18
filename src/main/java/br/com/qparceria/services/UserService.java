@@ -1,10 +1,12 @@
 package br.com.qparceria.services;
 
+import java.awt.image.BufferedImage;
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -50,6 +52,15 @@ public class UserService {
 	@Autowired
 	private S3Service s3Service;
 	
+	@Autowired
+	private ImageService imageService;
+
+	@Value("${img.prefix.user.profile}")
+	private String imgPrefixUserProfile;
+
+	@Value("${img.ext.user.profile}")
+	private String imgExtUserProfile;
+
 	public User find(Integer id) {		
 		UserSS userSS = UserLoggedService.authenticated();
 		if (userSS == null || !userSS.hasHole(Profile.ADMIN) && !id.equals(userSS.getId()) ) {
@@ -175,7 +186,15 @@ public class UserService {
 	}
 	
 	public URI uploadPicUser(MultipartFile file) {
-		return s3Service.uploadFile(file);
+		UserSS userSS = UserLoggedService.authenticated();
+		if (userSS == null) {
+			throw new AuthorizationException("Acesso negado");
+		}
+		
+		BufferedImage jpgImage = imageService.getJpgImagemFromMultipartFile(file);
+		String fileName = imgPrefixUserProfile + userSS.getId() +  imgExtUserProfile;
+		
+		return s3Service.uploadFile(imageService.getInputStream(jpgImage,  imgExtUserProfile), fileName, "image");
 	}
 		
 }
